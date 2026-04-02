@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>École Sainte Faustine - En avant pour une nouvelle année de notre mieux !</title>
+    <meta name="description"
+        content="Découvrez l'École Primaire Sainte Faustine à Poitiers, un établissement de confiance offrant un enseignement de qualité sous le regard de Dieu.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons (Phosphor Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <img src="./logo.png" alt="Logo Sainte Faustine" class="logo-img">
+                <span class="logo-text">Sainte Faustine</span>
+            </a>
+
+            <nav class="desktop-nav">
+                <a href="#accueil" class="active">Accueil</a>
+                <!-- Menu déroulant Présentation -->
+                <div class="dropdown">
+                    <a href="#presentation" class="dropdown-toggle">Présentation <i class="ph ph-caret-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="ecole.html">L'école</a>
+                        <a href="projet-educatif.html">Projet éducatif</a>
+                        <a href="racines.html">Nos racines</a>
+                        <a href="institutrices.html">Les institutrices</a>
+                        <a href="direction.html">La direction</a>
+                        <a href="locaux.html">Les locaux</a>
+                    </div>
+                </div>
+                <!-- Menu déroulant Infos pratiques -->
+                <div class="dropdown">
+                    <a href="tarifs-horaires.html" class="dropdown-toggle">Infos pratiques <i
+                            class="ph ph-caret-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="tarifs-horaires.html">Tarifs et horaires</a>
+                        <a href="tenue.html">Tenue vestimentaire</a>
+                    </div>
+                </div>
+                <a href="actualites.html">Actualités</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline"><i class="ph ph-lock-key"></i> Admin</a>
+                <a href="login.html" class="btn btn-outline"><i class="ph ph-user"></i> Parents</a>
+                <a href="https://www.helloasso.com/associations/action-sociale-citoyenne-educative-du-poitou/formulaires/1"
+                    target="_blank" class="btn btn-primary"><i class="ph ph-heart"></i> Faire un don</a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <button class="mobile-menu-btn">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="accueil" class="hero">
+            <div class="hero-bg">
+                <!-- Hero image depuis le site original -->
+                <img id="dynamic-hero-bg" src="./bandeau.png" alt="Enfants à l'école Sainte Faustine">
+                <div class="hero-overlay"></div>
+            </div>
+
+            <div class="container hero-content reveal">
+                <span class="badge">Rentrée 2025-2026</span>
+                <h1 id="site-hero-title">En avant pour une nouvelle année de notre mieux, <em>sous le regard de Dieu
+                        !</em></h1>
+                <p id="site-hero-desc">Une école à taille humaine au cœur de Poitiers, pour l'épanouissement intégral de
+                    chaque enfant.</p>
+                <div class="hero-buttons">
+                    <a href="inscription.html" class="btn btn-primary btn-large">Inscriptions 2026-2027 <i
+                            class="ph ph-arrow-right"></i></a>
+                    <a href="portes-ouvertes.html" class="btn btn-white btn-large">Portes Ouvertes Virtuelles</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Access (Floating Cards) -->
+        <section class="quick-access">
+            <div class="container">
+                <div class="quick-cards-wrapper reveal">
+                    <a href="#" class="quick-card">
+                        <div class="icon-box"><i class="ph ph-fork-knife"></i></div>
+                        <h3>Cantine</h3>
+                        <p>Menus et inscriptions</p>
+                    </a>
+                    <a href="#" class="quick-card">
+                        <div class="icon-box"><i class="ph ph-clock"></i></div>
+                        <h3>Garderie</h3>
+                        <p>Horaires du soir et matin</p>
+                    </a>
+                    <a href="#" class="quick-card">
+                        <div class="icon-box"><i class="ph ph-calendar-check"></i></div>
+                        <h3>Calendrier</h3>
+                        <p>Dates et vacances scolaires</p>
+                    </a>
+                    <a id="dynamic-inscription-pdf-1" href="#" class="quick-card accent-card">
+                        <div class="icon-box"><i class="ph ph-student"></i></div>
+                        <h3>S'inscrire</h3>
+                        <p>Dossier et modalités</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Actualités Section -->
+        <section id="actualites" class="section news-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>À ne pas manquer !</h2>
+                    <p>Les dernières nouvelles et échéances importantes de l'école.</p>
+                </div>
+
+                <div class="news-grid">
+                    <article class="news-card reveal" style="transition-delay: 100ms;">
+                        <div class="news-image">
+                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800&auto=format&fit=crop"
+                                alt="Portes ouvertes">
+                            <span class="news-date" id="n1-date">14 Mars</span>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-tag" id="n1-tag">Événement</div>
+                            <h3 id="n1-title">Portes Ouvertes 2026</h3>
+                            <p id="n1-text">Venez découvrir nos locaux, rencontrer l'équipe pédagogique et poser toutes
+                                vos questions sur les inscriptions.</p>
+                            <a id="n1-link" href="#" class="text-link">En savoir plus <i
+                                    class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="news-card reveal" style="transition-delay: 200ms;">
+                        <div class="news-image">
+                            <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=800&auto=format&fit=crop"
+                                alt="Inscriptions">
+                            <span class="news-date" id="n2-date">En cours</span>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-tag highlight" id="n2-tag">Inscriptions</div>
+                            <h3 id="n2-title">Année 2025-2026</h3>
+                            <p id="n2-text">Ne tardez pas à nous contacter. Le dossier d'inscription est disponible au
+                                secrétariat ou téléchargeable en ligne.</p>
+                            <a id="n2-link" href="#" class="text-link">Télécharger le fichier <i
+                                    class="ph ph-download-simple"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="news-card reveal" style="transition-delay: 300ms;">
+                        <div class="news-image">
+                            <img src="https://images.unsplash.com/photo-1610484826967-09c5720778c7?q=80&w=800&auto=format&fit=crop"
+                                alt="Messe">
+                            <span class="news-date" id="n3-date">Hebdo</span>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-tag" id="n3-tag">Pastoral</div>
+                            <h3 id="n3-title">Messe des écoliers</h3>
+                            <p id="n3-text">Messe célébrée cette semaine pour tous les élèves, parents et équipe en la
+                                paroisse de l'école.</p>
+                            <a id="n3-link" href="#" class="text-link">Voir les détails <i
+                                    class="ph ph-arrow-right"></i></a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery / Life at school -->
+        <section class="section gallery-section alternate-bg">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>Notre année en images</h2>
+                    <p>Découvrez la vie bouillonnante de notre établissement au fil des mois.</p>
+                </div>
+
+                <div class="gallery-grid reveal">
+                    <!-- Photo 1 -->
+                    <div class="gallery-item large">
+                        <img src="https://images.unsplash.com/photo-1563829023164-16e6f9d343f7?q=80&w=1000&auto=format&fit=crop"
+                            alt="Activité artistique">
+                        <div class="gallery-caption">Éveil artistique - CP</div>
+                    </div>
+                    <!-- Photo 2 -->
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800&auto=format&fit=crop"
+                            alt="Sortie scolaire">
+                        <div class="gallery-caption">Sortie nature - CE2</div>
+                    </div>
+                    <!-- Photo 3 -->
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1544928147-79a2dbc1f389?q=80&w=800&auto=format&fit=crop"
+                            alt="Cour de récréation">
+                        <div class="gallery-caption">Jeux en plein air</div>
+                    </div>
+                    <!-- Photo 4 -->
+                    <div class="gallery-item wide">
+                        <img src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?q=80&w=1200&auto=format&fit=crop"
+                            alt="Chorale">
+                        <div class="gallery-caption">Chorale de Noël - Toute l'école</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="section cta-section">
+            <div class="container">
+                <div class="cta-box reveal">
+                    <h2>Soutenez notre projet éducatif</h2>
+                    <p>L'École Sainte Faustine est une structure libre qui compte sur la générosité de ses donateurs
+                        pour continuer d'évoluer et d'accueillir les enfants dans les meilleures conditions.</p>
+                    <a href="https://www.helloasso.com/associations/action-sociale-citoyenne-educative-du-poitou/formulaires/1"
+                        target="_blank" class="btn btn-primary btn-large" style="margin-top: 1.5rem;">
+                        <i class="ph ph-heart"></i> Faire un don en ligne
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col brand-col">
+                    <a href="#" class="logo footer-logo">
+                        <span class="logo-text">Sainte Faustine</span>
+                    </a>
+                    <p class="footer-desc">En avant pour une nouvelle année de notre mieux, sous le regard de Dieu !</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/ecolesaintefaustinepoitiers/" target="_blank"
+                            aria-label="Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>L'École</h4>
+                    <ul>
+                        <li><a href="ecole.html">Présentation</a></li>
+                        <li><a href="projet-educatif.html">Projet éducatif</a></li>
+                        <li><a href="institutrices.html">Les institutrices</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Informations</h4>
+                    <ul>
+                        <li><a href="#">S'inscrire</a></li>
+                        <li><a href="tarifs-horaires.html">Tarifs et Horaires</a></li>
+                        <li><a href="#">Plan d'accès</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph ph-map-pin"></i> Poitiers, France</li>
+                        <li><i class="ph ph-phone"></i> +33 0 00 00 00 00</li>
+                        <li><i class="ph ph-envelope-simple"></i> contact@ecolesaintefaustine.fr</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 École Sainte Faustine. Tous droits réservés.</p>
+                <div class="footer-legal">
+                    <a href="#">Mentions Légales</a>
+                    <a href="#">Politique de Confidentialité</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-setup.js"></script>
+    <script src="content-loader.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

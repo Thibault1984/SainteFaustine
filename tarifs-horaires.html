@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarifs et Horaires - École Sainte Faustine</title>
+    <meta name="description"
+        content="Informations sur les tarifs, les modalités d'inscription, les horaires et la vie quotidienne à l'École Sainte Faustine de Poitiers.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons (Phosphor Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 6rem 0 3rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .content-section {
+            padding: 4rem 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .info-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
+            border-top: 4px solid var(--accent-color);
+            height: 100%;
+        }
+
+        .info-card h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+        }
+
+        .info-card h2 i {
+            color: var(--accent-color);
+        }
+
+        .info-card h3 {
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.5rem;
+            color: var(--text-color);
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1rem;
+        }
+
+        .info-card ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .info-card ul li::before {
+            content: "•";
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .schedule-table th {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .highlight-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary-light);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="./logo.png" alt="Logo Sainte Faustine" class="logo-img">
+                <span class="logo-text">Sainte Faustine</span>
+            </a>
+
+            <nav class="desktop-nav">
+                <a href="index.html">Accueil</a>
+                <!-- Menu déroulant Présentation -->
+                <div class="dropdown">
+                    <a href="index.html#presentation" class="dropdown-toggle">Présentation <i
+                            class="ph ph-caret-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="ecole.html">L'école</a>
+                        <a href="projet-educatif.html">Projet éducatif</a>
+                        <a href="racines.html">Nos racines</a>
+                        <a href="institutrices.html">Les institutrices</a>
+                        <a href="direction.html">La direction</a>
+                        <a href="locaux.html">Les locaux</a>
+                    </div>
+                </div>
+                <!-- Menu déroulant Infos pratiques -->
+                <div class="dropdown">
+                    <a href="tarifs-horaires.html" class="dropdown-toggle active">Infos pratiques <i class="ph ph-caret-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="tarifs-horaires.html">Tarifs et horaires</a>
+                        <a href="tenue.html">Tenue vestimentaire</a>
+                    </div>
+                </div>
+                <a href="index.html#actualites">Actualités</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline"><i class="ph ph-lock-key"></i> Admin</a>
+                <a href="login.html" class="btn btn-outline"><i class="ph ph-user"></i> Parents</a>
+                <a href="https://www.helloasso.com/associations/action-sociale-citoyenne-educative-du-poitou/formulaires/1"
+                    target="_blank" class="btn btn-primary"><i class="ph ph-heart"></i> Faire un don</a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <button class="mobile-menu-btn">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container reveal">
+                <h1>Tarifs et Horaires</h1>
+                <p>Toutes les informations pratiques concernant l'inscription et la vie quotidienne à l'école.</p>
+            </div>
+        </section>
+
+        <section class="section content-section">
+            <div class="container">
+                <div class="info-grid">
+
+                    <!-- Colonne Inscriptions et Tarifs -->
+                    <div class="info-card reveal">
+                        <h2><i class="ph-fill ph-student"></i> Inscription et Tarifs</h2>
+                        <div id="dynamic-tarifs-content">
+                            <p>Placée sous la protection de la Miséricorde divine, l’école Sainte Faustine accueille les
+                                enfants de la toute petite section au CM2.</p>
+
+                            <h3>Modalités d'inscription (Rentrée 2026/2027)</h3>
+                            <ul>
+                                <li><strong>Dépôt du dossier :</strong> Le dossier d'inscription complet est à déposer
+                                    avant le <strong>20 avril 2026</strong>.</li>
+                                <li><strong>Adresse d'envoi :</strong> 12 place Henri Barbusse, 86000 POITIERS.</li>
+                                <li><strong>Admission :</strong> L'admission est prononcée en fonction de la date de
+                                    réception du dossier complet et des places disponibles. Un entretien avec les
+                                    parents et une demi-journée d'évaluation pour l'enfant peuvent être requis.</li>
+                            </ul>
+                            <a href="inscription.html" class="btn btn-primary btn-outline" style="margin-top: 1rem;">Aller sur la page</a>
+
+                            <h3>Tarifs de scolarité</h3>
+                            <div class="highlight-box">
+                                <p><strong>Frais de dossier :</strong> 50 € par famille (non remboursables en cas
+                                    d'annulation).</p>
+                                <p><strong>Frais de fournitures et d'assurance :</strong> 60 € par enfant par an.</p>
+                            </div>
+
+                            <p>Afin de pourvoir aux charges de l’école (loyer, salaires, charges sociales, etc.), nous
+                                proposons un modèle de contribution :</p>
+                            <ul>
+                                <li><strong>Contribution de soutien :</strong> 260 € (Grâce à la déduction fiscale de
+                                    66%, le coût de revient net d'impôt est de 88,40 €).</li>
+                            </ul>
+
+                            <h3>Bourses et Solidarité</h3>
+                            <p>Les difficultés financières ne doivent pas être un obstacle à l'inscription de votre
+                                enfant. Des bourses peuvent être demandées :</p>
+                            <ul>
+                                <li>Auprès de l'<strong>AES</strong> (Association Education Solidarité).</li>
+                                <li>Sur le fonds de solidarité propre à notre école.</li>
+                            </ul>
+                            <p><strong>Contact :</strong> presidence.asso@ecolesaintefaustine.fr ou par téléphone au 07
+                                82 87 39 86.</p>
+                        </div>
+                    </div>
+
+                    <!-- Colonne Vie Quotidienne et Horaires -->
+                    <div class="info-card reveal" style="transition-delay: 200ms;">
+                        <h2><i class="ph-fill ph-clock"></i> Horaires et Vie Quotidienne</h2>
+
+                        <div id="dynamic-horaires-content">
+                            <h3>Organisation de la semaine</h3>
+                            <p>Les enfants ont classe les lundis, mardis, jeudis et vendredis.</p>
+
+                            <table class="schedule-table">
+                                <tr>
+                                    <th>Moment de la journée</th>
+                                    <th>Horaires</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>Matin</strong></td>
+                                    <td>8h30 - 12h00</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Après-midi</strong></td>
+                                    <td>13h30 - 16h15</td>
+                                </tr>
+                            </table>
+
+                            <h3>Déroulement de la journée</h3>
+                            <ul>
+                                <li><strong>8h15 :</strong> Accueil échelonné des élèves au Forum Rivaud.</li>
+                                <li><strong>8h30 :</strong> Rassemblement dans le silence pour la prière avec toute
+                                    l’équipe enseignante (les parents y sont fraternellement invités).</li>
+                                <li><strong>8h45 - 12h00 :</strong> Temps d'enseignement.</li>
+                                <li><strong>13h20 :</strong> Accueil dans la cour.</li>
+                                <li><strong>13h30 - 16h15 :</strong> Reprise et temps d'enseignement de l'après-midi.
+                                </li>
+                            </ul>
+
+                            <h3>Pause-déjeuner (Cantine)</h3>
+                            <div class="highlight-box">
+                                <p><i class="ph ph-info"></i> L’école ne dispose <strong>pas de cantine</strong>.</p>
+                            </div>
+                            <p>Les enfants qui ne peuvent pas rentrer chez eux, peuvent déjeuner sur place avec un
+                                <strong>"panier-repas"</strong> préparé à la maison, qu'ils peuvent réchauffer. Une
+                                participation financière est demandée aux parents pour les frais de surveillance du
+                                temps de repas.
+                            </p>
+
+                            <h3>Garderie (Périscolaire)</h3>
+                            <p>Actuellement, l'école ne propose <strong>pas de garderie périscolaire</strong>.
+                                Toutefois, en cas de besoin spécifique, l'équipe se tient à l'écoute des familles pour
+                                étudier des solutions ponctuelles.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="section cta-section"
+            style="background-color: var(--primary-dark); color: white; padding: 4rem 0; text-align: center;">
+            <div class="container reveal">
+                <h2 style="color: white; margin-bottom: 1rem;">Une question sur les inscriptions ?</h2>
+                <p style="margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">N'hésitez pas à
+                    nous contacter pour toute demande de renseignement complémentaire concernant les tarifs ou
+                    l'organisation de la semaine.</p>
+                <a href="mailto:contact@ecolesaintefaustine.fr" class="btn btn-primary btn-large">
+                    <i class="ph ph-envelope-simple"></i> Nous contacter
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col brand-col">
+                    <a href="index.html" class="logo footer-logo">
+                        <span class="logo-text">Sainte Faustine</span>
+                    </a>
+                    <p class="footer-desc">En avant pour une nouvelle année de notre mieux, sous le regard de Dieu !</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/ecolesaintefaustinepoitiers/" target="_blank"
+                            aria-label="Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>L'École</h4>
+                    <ul>
+                        <li><a href="index.html#presentation">Présentation</a></li>
+                        <li><a href="projet-educatif.html">Projet Éducatif</a></li>
+                        <li><a href="institutrices.html">Les institutrices</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Informations</h4>
+                    <ul>
+                        <li><a href="tarifs-horaires.html">S'inscrire</a></li>
+                        <li><a href="tarifs-horaires.html">Tarifs et Horaires</a></li>
+                        <li><a href="#">Plan d'accès</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph ph-map-pin"></i> Poitiers, France</li>
+                        <li><i class="ph ph-phone"></i> +33 0 00 00 00 00</li>
+                        <li><i class="ph ph-envelope-simple"></i> contact@ecolesaintefaustine.fr</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 École Sainte Faustine. Tous droits réservés.</p>
+                <div class="footer-legal">
+                    <a href="#">Mentions Légales</a>
+                    <a href="#">Politique de Confidentialité</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-setup.js"></script>
+    <script src="content-loader.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

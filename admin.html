@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration du Contenu - École Sainte Faustine</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Jodit Editor -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.min.js"></script>
+    <link rel="stylesheet" href="admin.css">
+    <style>
+        .file-drop-area {
+            border: 2px dashed #cbd5e1;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 8px;
+            background: #f8fafc;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+
+        .file-drop-area:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin CMS</h2>
+                <p>École Sainte Faustine</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#hero" class="active"><i class="ph ph-layout"></i> Textes & Accueil</a>
+                <a href="#actualites"><i class="ph ph-books"></i> Cartes Actualités</a>
+                <a href="#presentation"><i class="ph ph-books"></i> Présentation de l'École</a>
+                <a href="#infos"><i class="ph ph-info"></i> Informations pratiques</a>
+                <a href="#inscriptions"><i class="ph ph-student"></i> Inscriptions</a>
+                <a href="#files"><i class="ph ph-folder"></i> Fichiers & Images</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button type="button" id="logoutBtn" class="btn btn-outline-light"
+                    style="width: 100%; margin-bottom: 0.5rem; justify-content: flex-start; cursor: pointer; background: transparent; color: white;"><i
+                        class="ph ph-sign-out"></i> Déconnexion</button>
+                <a href="index.html" class="btn btn-outline-light" style="width: 100%; justify-content: flex-start;"><i
+                        class="ph ph-arrow-left"></i> Voir le site public</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <h1>Gestion du Contenu (Supabase)</h1>
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" id="refreshBtn" class="btn btn-outline">
+                        <i class="ph ph-arrows-clockwise"></i> Recharger la BDD
+                    </button>
+                    <button type="button" id="saveTextBtn" class="btn btn-primary">
+                        <i class="ph ph-floppy-disk"></i> Enregistrer les Textes
+                    </button>
+                </div>
+            </header>
+
+            <form id="adminForm">
+                <section id="hero" class="content-section card">
+                    <div class="card-header">
+                        <h2>Textes de l'Accueil</h2>
+                        <p>Modifiez ici les textes principaux du site.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="site-hero-title">Titre principal</label>
+                        <textarea id="site-hero-title" rows="2"></textarea>
+                        <small>Utilisez la balise <code>&lt;em&gt;votre texte&lt;/em&gt;</code> pour mettre en évidence
+                            un passage.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="site-hero-desc">Sous-titre / Description</label>
+                        <input type="text" id="site-hero-desc">
+                    </div>
+                </section>
+
+                <section id="actualites" class="content-section card">
+                    <div class="card-header">
+                        <h2>Cartes Actualités</h2>
+                        <p>Modifiez ici les trois encarts d'annonces de la page d'accueil.</p>
+                    </div>
+
+                    <div class="news-editor" id="news1"
+                        style="border-top:1px solid #e2e8f0; padding-top: 1rem; margin-top: 1rem;">
+                        <h3 class="news-block-title" style="margin-bottom:1rem;"><span class="badge-num"
+                                style="background:var(--primary); color:white; padding:2px 8px; border-radius:4px; margin-right:8px;">1</span>
+                            Première Actualité</h3>
+                        <div class="form-row" style="display:flex; gap:1rem;">
+                            <div class="form-group" style="flex:1;"><label for="n1-tag">Tag (ex:
+                                    Événement)</label><input type="text" id="n1-tag"></div>
+                            <div class="form-group" style="flex:1;"><label for="n1-date">Date (ex: 14
+                                    Mars)</label><input type="text" id="n1-date"></div>
+                        </div>
+                        <div class="form-group"><label for="n1-title">Titre de l'actu</label><input type="text"
+                                id="n1-title"></div>
+                        <div class="form-group"><label for="n1-text">Description courte</label><textarea id="n1-text"
+                                rows="2"></textarea></div>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label>Fichier rattaché (Optionnel)</label>
+                            <div class="file-drop-area" id="dropAreaN1"
+                                onclick="document.getElementById('uploadFileN1').click()"
+                                style="padding: 1rem; min-height: 80px;">
+                                <p style="font-size: 0.9rem; margin:0;">Cliquez pour choisir un fichier</p>
+                                <input type="file" id="uploadFileN1" style="display: none;">
+                            </div>
+                            <div id="current-n1-link" style="margin-top: 0.5rem; font-size: 0.85rem; color: #4b5563;">
+                            </div>
+                            <small id="statusN1" style="color: green; font-weight: bold; display: none;">Envoi en
+                                cours...</small>
+                        </div>
+                    </div>
+
+                    <div class="news-editor" id="news2"
+                        style="border-top:1px solid #e2e8f0; padding-top: 1rem; margin-top: 1rem;">
+                        <h3 class="news-block-title" style="margin-bottom:1rem;"><span class="badge-num"
+                                style="background:var(--primary); color:white; padding:2px 8px; border-radius:4px; margin-right:8px;">2</span>
+                            Deuxième Actualité</h3>
+                        <div class="form-row" style="display:flex; gap:1rem;">
+                            <div class="form-group" style="flex:1;"><label for="n2-tag">Tag (ex:
+                                    Inscriptions)</label><input type="text" id="n2-tag"></div>
+                            <div class="form-group" style="flex:1;"><label for="n2-date">Date (ex: En
+                                    cours)</label><input type="text" id="n2-date"></div>
+                        </div>
+                        <div class="form-group"><label for="n2-title">Titre de l'actu</label><input type="text"
+                                id="n2-title"></div>
+                        <div class="form-group"><label for="n2-text">Description courte</label><textarea id="n2-text"
+                                rows="2"></textarea></div>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label>Fichier rattaché (Optionnel)</label>
+                            <div class="file-drop-area" id="dropAreaN2"
+                                onclick="document.getElementById('uploadFileN2').click()"
+                                style="padding: 1rem; min-height: 80px;">
+                                <p style="font-size: 0.9rem; margin:0;">Cliquez pour choisir un fichier</p>
+                                <input type="file" id="uploadFileN2" style="display: none;">
+                            </div>
+                            <div id="current-n2-link" style="margin-top: 0.5rem; font-size: 0.85rem; color: #4b5563;">
+                            </div>
+                            <small id="statusN2" style="color: green; font-weight: bold; display: none;">Envoi en
+                                cours...</small>
+                        </div>
+                    </div>
+
+                    <div class="news-editor" id="news3"
+                        style="border-top:1px solid #e2e8f0; padding-top: 1rem; margin-top: 1rem;">
+                        <h3 class="news-block-title" style="margin-bottom:1rem;"><span class="badge-num"
+                                style="background:var(--primary); color:white; padding:2px 8px; border-radius:4px; margin-right:8px;">3</span>
+                            Troisième Actualité</h3>
+                        <div class="form-row" style="display:flex; gap:1rem;">
+                            <div class="form-group" style="flex:1;"><label for="n3-tag">Tag (ex: Pastoral)</label><input
+                                    type="text" id="n3-tag"></div>
+                            <div class="form-group" style="flex:1;"><label for="n3-date">Date (ex: Hebdo)</label><input
+                                    type="text" id="n3-date"></div>
+                        </div>
+                        <div class="form-group"><label for="n3-title">Titre de l'actu</label><input type="text"
+                                id="n3-title"></div>
+                        <div class="form-group"><label for="n3-text">Description courte</label><textarea id="n3-text"
+                                rows="2"></textarea></div>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label>Fichier rattaché (Optionnel)</label>
+                            <div class="file-drop-area" id="dropAreaN3"
+                                onclick="document.getElementById('uploadFileN3').click()"
+                                style="padding: 1rem; min-height: 80px;">
+                                <p style="font-size: 0.9rem; margin:0;">Cliquez pour choisir un fichier</p>
+                                <input type="file" id="uploadFileN3" style="display: none;">
+                            </div>
+                            <div id="current-n3-link" style="margin-top: 0.5rem; font-size: 0.85rem; color: #4b5563;">
+                            </div>
+                            <small id="statusN3" style="color: green; font-weight: bold; display: none;">Envoi en
+                                cours...</small>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="presentation" class="content-section card">
+                    <div class="card-header">
+                        <h2>Présentation de l'École</h2>
+                        <p>Modifiez le contenu HTML des différentes pages de présentation.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="dynamic-ecole-content">L'École</label>
+                        <textarea id="dynamic-ecole-content" rows="6"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dynamic-projet-content">Projet éducatif</label>
+                        <textarea id="dynamic-projet-content" rows="6"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dynamic-racines-content">Nos racines</label>
+                        <textarea id="dynamic-racines-content" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dynamic-institutrices-content">Les institutrices</label>
+                        <textarea id="dynamic-institutrices-content" rows="6"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dynamic-direction-content">La direction</label>
+                        <textarea id="dynamic-direction-content" rows="6"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dynamic-locaux-content">Les locaux</label>
+                        <textarea id="dynamic-locaux-content" rows="4"></textarea>
+                    </div>
+                </section>
+
+                <section id="infos" class="content-section card">
+                    <div class="card-header">
+                        <h2>Informations pratiques</h2>
+                        <p>Modifiez le contenu des pages Informations (Tarifs, Horaires, etc).</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="dynamic-tarifs-content">Inscription et Tarifs (Résumé Tarifaire)</label>
+                        <textarea id="dynamic-tarifs-content" rows="8"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dynamic-horaires-content">Horaires et Vie Quotidienne</label>
+                        <textarea id="dynamic-horaires-content" rows="8"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dynamic-tenue-content">Tenue vestimentaire</label>
+                        <textarea id="dynamic-tenue-content" rows="8"></textarea>
+                    </div>
+                </section>
+
+                <section id="inscriptions" class="content-section card">
+                    <div class="card-header">
+                        <h2>Inscriptions & Réinscriptions</h2>
+                        <p>Gérez ici le contenu de la page des inscriptions.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="dynamic-inscription-content">Texte des modalités d'inscription</label>
+                        <textarea id="dynamic-inscription-content" rows="6"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dynamic-reinscription-content">Texte des modalités de réinscription</label>
+                        <textarea id="dynamic-reinscription-content" rows="6"></textarea>
+                    </div>
+                </section>
+
+                <section id="files" class="content-section card">
+                    <div class="card-header">
+                        <h2>Fichiers & Images</h2>
+                        <p>Téléchargez ici de nouveaux fichiers pour mettre à jour le site.</p>
+                    </div>
+
+                    <!-- Upload Image Hero -->
+                    <div class="form-group" style="margin-top: 2rem;">
+                        <label>Image de fond (Bannière d'accueil)</label>
+                        <div class="file-drop-area" onclick="document.getElementById('uploadHeroBg').click()">
+                            <i class="ph ph-image" style="font-size: 2rem; color: #64748b;"></i>
+                            <p>Cliquez pour choisir une image (JPEG, PNG, WEBP)</p>
+                            <input type="file" id="uploadHeroBg" accept="image/*" style="display: none;">
+                        </div>
+                        <div id="current-dynamic-hero-bg"
+                            style="margin-top: 0.5rem; font-size: 0.85rem; color: #4b5563;"></div>
+                        <small id="heroBgStatus" style="color: green; font-weight: bold; display: none;">Envoi en
+                            cours...</small>
+                    </div>
+
+                    <!-- Upload PDF Inscription -->
+                    <div class="form-group" style="margin-top: 2rem;">
+                        <label>Dossier d'inscription (PDF)</label>
+                        <div class="file-drop-area" onclick="document.getElementById('uploadPdf').click()">
+                            <i class="ph ph-file-pdf" style="font-size: 2rem; color: #64748b;"></i>
+                            <p>Cliquez pour choisir le PDF d'inscription</p>
+                            <input type="file" id="uploadPdf" accept=".pdf" style="display: none;">
+                        </div>
+                        <div id="current-dynamic-inscription-pdf"
+                            style="margin-top: 0.5rem; font-size: 0.85rem; color: #4b5563;"></div>
+                        <small id="pdfStatus" style="color: green; font-weight: bold; display: none;">Envoi en
+                            cours...</small>
+                    </div>
+
+                    <!-- Upload PDF Reinscription -->
+                    <div class="form-group" style="margin-top: 2rem;">
+                        <label>Dossier de réinscription (PDF)</label>
+                        <div class="file-drop-area" onclick="document.getElementById('uploadPdfRe').click()">
+                            <i class="ph ph-file-pdf" style="font-size: 2rem; color: #64748b;"></i>
+                            <p>Cliquez pour choisir le PDF de réinscription</p>
+                            <input type="file" id="uploadPdfRe" accept=".pdf" style="display: none;">
+                        </div>
+                        <div id="current-dynamic-reinscription-pdf"
+                            style="margin-top: 0.5rem; font-size: 0.85rem; color: #4b5563;"></div>
+                        <small id="pdfStatusRe" style="color: green; font-weight: bold; display: none;">Envoi en
+                            cours...</small>
+                    </div>
+                </section>
+            </form>
+
+            <footer class="admin-footer">
+                <p>Propulsé par Supabase Database et Storage.</p>
+            </footer>
+        </main>
+    </div>
+
+    <div id="toast" class="toast">
+        <i class="ph-fill ph-check-circle"></i> Opération réussie !
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-setup.js"></script>
+    <script src="adminjs"></script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Locaux - École Sainte Faustine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="navbar" class="scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="./logo.png" alt="Logo Sainte Faustine" class="logo-img">
+                <span class="logo-text" style="color:var(--primary);">Sainte Faustine</span>
+            </a>
+            <div class="nav-actions">
+                <a href="index.html" class="btn btn-outline"><i class="ph ph-arrow-left"></i> Retour au site</a>
+            </div>
+        </div>
+    </header>
+
+    <main style="padding-top: 120px; padding-bottom: 5rem; min-height: 70vh;">
+        <div class="container">
+            <h1 style="color: var(--primary); font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 1rem;">Nos Locaux</h1>
+            <div style="width: 60px; height: 4px; background: var(--secondary); margin-bottom: 2rem;"></div>
+            <div id="dynamic-locaux-content" style="line-height: 1.8; color: var(--text-light); font-size: 1.1rem; max-width: 800px;">
+                <p><strong>Adresse :</strong> Ecole Sainte Faustine, 12 place Henri Barbusse - Forum Rivaud - 86000 POITIERS.</p>
+                <p>L'école est situé dans le quartier Rivaud à Poitiers.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-setup.js"></script>
+    <script src="content-loader.js"></script>
+</body>
+</html>

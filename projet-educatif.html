@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet éducatif - École Sainte Faustine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="navbar" class="scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="./logo.png" alt="Logo Sainte Faustine" class="logo-img">
+                <span class="logo-text" style="color:var(--primary);">Sainte Faustine</span>
+            </a>
+            <div class="nav-actions">
+                <a href="index.html" class="btn btn-outline"><i class="ph ph-arrow-left"></i> Retour au site</a>
+            </div>
+        </div>
+    </header>
+
+    <main style="padding-top: 120px; padding-bottom: 5rem; min-height: 70vh;">
+        <div class="container">
+            <h1 style="color: var(--primary); font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 1rem;">Notre Projet Éducatif</h1>
+            <div style="width: 60px; height: 4px; background: var(--secondary); margin-bottom: 2rem;"></div>
+            <div id="dynamic-projet-content" style="line-height: 1.8; color: var(--text-light); font-size: 1.1rem; max-width: 800px;">
+                <p>L’école Sainte Faustine dispense un enseignement conforme aux programmes de l’Éducation Nationale. Les enseignants appliquent des méthodes de travail privilégiant l’analyse, la structuration de la pensée et le développement de la mémoire, avec des méthodes classiques (syllabique en lecture, chronologique en histoire et descriptive en géographie).</p>
+                
+                <h3 style="color: var(--primary); font-family: 'Playfair Display', serif; margin-top: 1.5rem; margin-bottom: 0.5rem;">1/ Formation intellectuelle</h3>
+                <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+                    <li><strong>Lecture et écriture :</strong> L’apprentissage de la lecture commence dès la maternelle simultanément à celui de l’écriture suivant une méthode exclusivement syllabique et phonomimique. Jusqu’à la fin du primaire, ces apprentissages sont perfectionnés grâce à des exercices quotidiens de graphisme, de copie et de lecture.</li>
+                    <li><strong>Français :</strong> L’acquisition de l’orthographe se fait par la pratique de dictées. Les textes sont choisis pour élever l’esprit des enfants. Parallèlement, l’enseignant donne des exercices d’analyse grammaticale et logique, de conjugaison et de grammaire. Les enfants apprennent également à composer des rédactions soignées.</li>
+                    <li><strong>Mathématiques :</strong> Leur étude développe le raisonnement (problèmes), la mémoire (calcul mental) et le soin (géométrie). Toute règle ou propriété est expliquée et démontrée avant d’être appliquée.</li>
+                    <li><strong>Matières d’éveil :</strong> L’enseignement de l’histoire est chronologique, celui de la géographie descriptif et physique. Les sciences naturelles ou « leçons de choses » développent la capacité d’émerveillement de l’enfant.</li>
+                    <li><strong>Anglais :</strong> Les élèves ont une séance d'anglais hebdomadaire du CP au CM2.</li>
+                </ul>
+
+                <h3 style="color: var(--primary); font-family: 'Playfair Display', serif; margin-top: 1.5rem; margin-bottom: 0.5rem;">2/ Formation spirituelle</h3>
+                <p>L’école Sainte Faustine est une école catholique romaine. Le catéchisme pratiqué est un enseignement complet fondé sur les quatre piliers traditionnels de la catéchèse.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-setup.js"></script>
+    <script src="content-loader.js"></script>
+</body>
+</html>

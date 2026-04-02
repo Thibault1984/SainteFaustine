@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscriptions & Réinscriptions - Ecole Sainte Faustine</title>
+    <meta name="description" content="Modalités d'inscription et de réinscription à l'école Sainte Faustine.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .inscription-block {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 3rem;
+        }
+        .inscription-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-light);
+        }
+        .inscription-header i {
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+        .inscription-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            font-size: 2rem;
+            margin: 0;
+        }
+        .download-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+        }
+        .download-action:hover {
+            background: #1a4f66;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="./logo.png" alt="Logo Sainte Faustine" class="logo-img">
+                <span class="logo-text">Sainte Faustine</span>
+            </a>
+
+            <nav class="desktop-nav">
+                <a href="index.html">Accueil</a>
+                <!-- Menu déroulant Présentation -->
+                <div class="dropdown">
+                    <a href="index.html#presentation" class="dropdown-toggle">Présentation <i
+                            class="ph ph-caret-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="ecole.html">L'école</a>
+                        <a href="projet-educatif.html">Projet éducatif</a>
+                        <a href="racines.html">Nos racines</a>
+                        <a href="institutrices.html">Les institutrices</a>
+                        <a href="direction.html">La direction</a>
+                        <a href="locaux.html">Les locaux</a>
+                    </div>
+                </div>
+                <!-- Menu déroulant Infos pratiques -->
+                <div class="dropdown">
+                    <a href="tarifs-horaires.html" class="dropdown-toggle">Infos pratiques <i class="ph ph-caret-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="tarifs-horaires.html">Tarifs et horaires</a>
+                        <a href="tenue.html">Tenue vestimentaire</a>
+                    </div>
+                </div>
+                <a href="index.html#actualites">Actualités</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline"><i class="ph ph-lock-key"></i> Admin</a>
+                <a href="login.html" class="btn btn-outline"><i class="ph ph-user"></i> Parents</a>
+                <a href="https://www.helloasso.com/associations/action-sociale-citoyenne-educative-du-poitou/formulaires/1"
+                    target="_blank" class="btn btn-primary"><i class="ph ph-heart"></i> Faire un don</a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <button class="mobile-menu-btn">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <header class="page-header" style="background: linear-gradient(rgba(35, 96, 124, 0.9), rgba(35, 96, 124, 0.9)), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2000&auto=format&fit=crop'); background-size: cover; background-position: center; padding: 120px 0 60px 0;">
+        <div class="container">
+            <h1 style="color: white; font-family: 'Playfair Display', serif; font-size: 3.5rem; text-align: center; margin-bottom: 1rem;">Inscriptions</h1>
+            <p style="color: rgba(255,255,255,0.9); text-align: center; font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Modalités et dossiers pour la prochaine rentrée.</p>
+        </div>
+    </header>
+
+    <main class="section bg-light">
+        <div class="container">
+            <!-- Modalités d'inscription -->
+            <div class="inscription-block reveal">
+                <div class="inscription-header">
+                    <i class="ph-fill ph-student"></i>
+                    <h2>Modalités d'Inscription</h2>
+                </div>
+                <div id="dynamic-inscription-content" style="line-height: 1.8; color: var(--text-light); font-size: 1.1rem;">
+                    <p>L'admission de nouveaux élèves est prononcée en fonction de la date de réception du dossier complet et des places disponibles. Un entretien préalable avec l'équipe de direction est systématiquement organisé.</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Télécharger et remplir le dossier ci-dessous.</li>
+                        <li>Joindre l'ensemble des pièces justificatives demandées.</li>
+                        <li>Prendre rendez-vous avec la direction au 06 27 57 62 57.</li>
+                    </ul>
+                </div>
+                <a id="dynamic-inscription-pdf" href="#" class="download-action">
+                    <i class="ph ph-file-pdf"></i> Télécharger le dossier d'inscription
+                </a>
+            </div>
+
+            <!-- Modalités de réinscription -->
+            <div class="inscription-block reveal" style="transition-delay: 200ms;">
+                <div class="inscription-header" style="border-color: var(--secondary);">
+                    <i class="ph-fill ph-users-three" style="color: var(--secondary);"></i>
+                    <h2 style="color: var(--secondary);">Modalités de Réinscription</h2>
+                </div>
+                <div id="dynamic-reinscription-content" style="line-height: 1.8; color: var(--text-light); font-size: 1.1rem;">
+                    <p>Pour les familles ayant déjà des enfants scolarisés dans notre établissement, une procédure simplifiée est mise en place. La priorité vous est accordée sous réserve du retour du dossier dans les délais impartis.</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Télécharger le formulaire de réinscription simplifié.</li>
+                        <li>Le remettre rempli au secrétariat de l'école ou à l'enseignant de votre enfant.</li>
+                    </ul>
+                </div>
+                <a id="dynamic-reinscription-pdf" href="#" class="download-action" style="background: var(--secondary);">
+                    <i class="ph ph-file-pdf"></i> Télécharger le formulaire de réinscription
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col brand-col">
+                    <a href="index.html" class="logo footer-logo">
+                        <span class="logo-text">Sainte Faustine</span>
+                    </a>
+                    <p class="footer-desc">En avant pour une nouvelle année de notre mieux, sous le regard de Dieu !</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/ecolesaintefaustinepoitiers/" target="_blank"
+                            aria-label="Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>L'École</h4>
+                    <ul>
+                        <li><a href="index.html#presentation">Présentation</a></li>
+                        <li><a href="projet-educatif.html">Projet Éducatif</a></li>
+                        <li><a href="institutrices.html">Les institutrices</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Informations</h4>
+                    <ul>
+                        <li><a href="tarifs-horaires.html">S'inscrire</a></li>
+                        <li><a href="tarifs-horaires.html">Tarifs et Horaires</a></li>
+                        <li><a href="#">Plan d'accès</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph ph-map-pin"></i> Poitiers, France</li>
+                        <li><i class="ph ph-phone"></i> +33 0 00 00 00 00</li>
+                        <li><i class="ph ph-envelope-simple"></i> contact@ecolesaintefaustine.fr</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 École Sainte Faustine. Tous droits réservés.</p>
+                <div class="footer-legal">
+                    <a href="#">Mentions Légales</a>
+                    <a href="#">Politique de Confidentialité</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-setup.js"></script>
+    <script src="content-loader.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

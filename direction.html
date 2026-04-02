@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Direction - École Sainte Faustine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="navbar" class="scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="./logo.png" alt="Logo Sainte Faustine" class="logo-img">
+                <span class="logo-text" style="color:var(--primary);">Sainte Faustine</span>
+            </a>
+            <div class="nav-actions">
+                <a href="index.html" class="btn btn-outline"><i class="ph ph-arrow-left"></i> Retour au site</a>
+            </div>
+        </div>
+    </header>
+
+    <main style="padding-top: 120px; padding-bottom: 5rem; min-height: 70vh;">
+        <div class="container">
+            <h1 style="color: var(--primary); font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 1rem;">La Direction</h1>
+            <div style="width: 60px; height: 4px; background: var(--secondary); margin-bottom: 2rem;"></div>
+            <div id="dynamic-direction-content" style="line-height: 1.8; color: var(--text-light); font-size: 1.1rem; max-width: 800px;">
+                <p>La direction pédagogique de l'école garantit la fidèle application du projet éducatif et l'harmonie au sein de l'établissement.</p>
+                <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; margin-top: 2rem;">
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem; font-family: 'Playfair Display', serif;">Marie d'AREXY</h3>
+                    <p style="font-weight: 500; font-size: 0.95rem; color: var(--secondary); margin-bottom: 0.5rem;">Directrice de l'établissement</p>
+                    <p style="font-size: 0.95rem;">Contact : <a href="mailto:direction.pedagogique@ecolesaintefaustine.fr">direction.pedagogique@ecolesaintefaustine.fr</a> - 06 27 57 62 57</p>
+                </div>
+                <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; margin-top: 1rem;">
+                    <h3 style="color: var(--primary); margin-bottom: 0.5rem; font-family: 'Playfair Display', serif;">L'équipe de gestion</h3>
+                    <p style="font-size: 0.95rem;">L’école est gérée par l’association ASOCEP (Action Sociale Citoyenne Educative du Poitou), présidée par <strong>Monsieur Clément DECROIX</strong>.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-setup.js"></script>
+    <script src="content-loader.js"></script>
+</body>
+</html>

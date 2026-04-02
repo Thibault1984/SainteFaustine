@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion Administration - École Sainte Faustine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .login-card {
+            background: white;
+            padding: 2.5rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        .login-card h1 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #0f172a;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .btn-full {
+            width: 100%;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        #error-msg {
+            color: #ef4444;
+            margin-top: 1rem;
+            display: none;
+            font-size: 0.9rem;
+            text-align: center;
+            background: #fef2f2;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
+        }
+
+        .spinner {
+            display: none;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-card">
+        <h1>Accès Administrateur</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Identifiant de connexion</label>
+                <input type="text" id="email" required placeholder="ex: Admin">
+            </div>
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" id="password" required placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">
+                <span id="btn-text">Se connecter</span>
+                <i class="ph ph-spinner spinner" id="spinner"></i>
+            </button>
+            <div id="error-msg">Identifiants incorrects</div>
+        </form>
+        <a href="index.html"
+            style="display:inline-block; margin-top:1.5rem; color:#64748b; text-decoration:none; font-size:0.9rem;"><i
+                class="ph ph-arrow-left"></i> Retour au site public</a>
+    </div>
+
+    <!-- Initialize Supabase Auth -->
+    <script src="supabase-setup.js"></script>
+    <script src="login.js"></script>
+</body>
+
+</html>
