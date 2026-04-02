@@ -93,4 +93,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (err) {
         console.error("Unexpected error loading content:", err);
     }
+    
+    // Fermeture de la Lightbox
+    const lbContainer = document.getElementById('lightbox');
+    if (lbContainer) {
+        lbContainer.addEventListener('click', () => {
+            lbContainer.classList.remove('show');
+        });
+    }
 });
