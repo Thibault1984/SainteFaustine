@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                                 galleryGrid.innerHTML += `
                                     <div class="gallery-item ${extraClass}">
-                                        <img src="${img.url}" alt="${img.caption || 'Galerie'}">
+                                        <img src="${img.url}" alt="${img.caption || 'Galerie'}" onclick="openLightbox('${img.url}')" style="cursor: zoom-in; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
                                         <div class="gallery-caption">${img.caption || ''}</div>
                                     </div>
                                 `;
