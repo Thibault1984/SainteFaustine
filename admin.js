@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         await window.supabaseClient.from('site_content').upsert({ 
             id: 'gallery-data', 
             content: JSON.stringify(window.currentGalleryImages), 
-            type: 'json' 
+            type: 'text' 
         }, { onConflict: 'id' });
         showToast("Image supprimée avec succès !");
     };
@@ -346,7 +346,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const { error: dbError } = await window.supabaseClient.from('site_content').upsert({
                     id: 'gallery-data',
                     content: JSON.stringify(window.currentGalleryImages),
-                    type: 'json'
+                    type: 'text'
                 }, { onConflict: 'id' });
 
                 if (dbError) throw dbError;
