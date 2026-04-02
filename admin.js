@@ -40,6 +40,43 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     // 1. Charger les données actuelles
+    window.currentGalleryImages = [];
+    const renderAdminGallery = () => {
+        const list = document.getElementById('admin-gallery-list');
+        if (!list) return;
+        list.innerHTML = '';
+        if (window.currentGalleryImages.length === 0) {
+            list.innerHTML = '<p style="color: #64748b;">Aucune image dans la galerie pour le moment.</p>';
+            return;
+        }
+        window.currentGalleryImages.forEach((img, idx) => {
+            list.innerHTML += `
+                <div style="display:flex; align-items:center; gap: 1rem; padding: 1rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    <img src="${img.url}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 4px;">
+                    <div style="flex:1;">
+                        <p style="font-weight: 600; margin-bottom: 0.25rem;">${img.caption || 'Sans légende'}</p>
+                    </div>
+                    <button type="button" class="btn btn-outline" style="color: #ef4444; border-color: #ef4444;" onclick="deleteGalleryImage(${idx})">
+                        <i class="ph ph-trash"></i>
+                    </button>
+                </div>
+            `;
+        });
+    };
+
+    window.deleteGalleryImage = async (idx) => {
+        if (!confirm('Voulez-vous vraiment supprimer cette image de la galerie ?')) return;
+        window.currentGalleryImages.splice(idx, 1);
+        renderAdminGallery();
+        
+        await window.supabaseClient.from('site_content').upsert({ 
+            id: 'gallery-data', 
+            content: JSON.stringify(window.currentGalleryImages), 
+            type: 'json' 
+        }, { onConflict: 'id' });
+        showToast("Image supprimée avec succès !");
+    };
+
     const loadData = async () => {
         const { data, error } = await window.supabaseClient.from('site_content').select('*');
         if (error) {
@@ -48,6 +85,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         data.forEach(item => {
+            if (item.id === 'gallery-data') {
+                try {
+                    window.currentGalleryImages = JSON.parse(item.content);
+                } catch(e) { window.currentGalleryImages = []; }
+                renderAdminGallery();
+                return;
+            }
             if (item.type === 'text') {
                 const input = document.getElementById(item.id);
                 if (input) {
@@ -248,5 +292,83 @@ document.addEventListener('DOMContentLoaded', async () => {
     handleFileUpload('uploadFileN1', 'n1-link', 'statusN1', 'file_url');
     handleFileUpload('uploadFileN2', 'n2-link', 'statusN2', 'file_url');
     handleFileUpload('uploadFileN3', 'n3-link', 'statusN3', 'file_url');
+
+    // Gestion de la Galerie (illimitée)
+    const uploadNewGalleryImgInput = document.getElementById('uploadNewGalleryImg');
+    const newGalleryImgLabel = document.getElementById('newGalleryImgLabel');
+    const btnAddGalleryImage = document.getElementById('btnAddGalleryImage');
+    const galleryUploadStatus = document.getElementById('galleryUploadStatus');
+    const newGalleryCaption = document.getElementById('new-gallery-caption');
+
+    if (uploadNewGalleryImgInput && btnAddGalleryImage && newGalleryCaption) {
+        uploadNewGalleryImgInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                newGalleryImgLabel.textContent = file.name;
+                btnAddGalleryImage.disabled = false;
+            } else {
+                newGalleryImgLabel.textContent = "Cliquez pour choisir un fichier";
+                btnAddGalleryImage.disabled = true;
+            }
+        });
+
+        btnAddGalleryImage.addEventListener('click', async () => {
+            const file = uploadNewGalleryImgInput.files[0];
+            if (!file) return;
+
+            galleryUploadStatus.style.display = "block";
+            galleryUploadStatus.textContent = "Téléchargement en cours...";
+            galleryUploadStatus.style.color = "#eab308";
+            btnAddGalleryImage.disabled = true;
+
+            try {
+                const fileExt = file.name.split('.').pop();
+                const fileName = `gallery-${Date.now()}.${fileExt}`;
+                const filePath = `public/gallery/${fileName}`;
+
+                const { error: uploadError } = await window.supabaseClient.storage
+                    .from(SUPABASE_BUCKET)
+                    .upload(filePath, file);
+
+                if (uploadError) throw uploadError;
+
+                const { data: publicUrlData } = window.supabaseClient.storage
+                    .from(SUPABASE_BUCKET)
+                    .getPublicUrl(filePath);
+
+                const publicUrl = publicUrlData.publicUrl;
+
+                window.currentGalleryImages.push({
+                    url: publicUrl,
+                    caption: newGalleryCaption.value.trim()
+                });
+
+                const { error: dbError } = await window.supabaseClient.from('site_content').upsert({
+                    id: 'gallery-data',
+                    content: JSON.stringify(window.currentGalleryImages),
+                    type: 'json'
+                }, { onConflict: 'id' });
+
+                if (dbError) throw dbError;
+
+                galleryUploadStatus.style.color = "#22c55e";
+                galleryUploadStatus.textContent = "✔ Image ajoutée !";
+                showToast("Image ajoutée à la galerie !");
+                
+                uploadNewGalleryImgInput.value = "";
+                newGalleryCaption.value = "";
+                newGalleryImgLabel.textContent = "Cliquez pour choisir un fichier";
+                setTimeout(() => { galleryUploadStatus.style.display = "none"; }, 3000);
+                
+                renderAdminGallery();
+            } catch (err) {
+                console.error("Upload error:", err);
+                galleryUploadStatus.style.color = "#ef4444";
+                galleryUploadStatus.textContent = "❌ Erreur de l'upload.";
+                alert("Erreur: " + err.message);
+                btnAddGalleryImage.disabled = false;
+            }
+        });
+    }
 
 });

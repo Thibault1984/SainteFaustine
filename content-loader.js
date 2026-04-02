@@ -20,6 +20,33 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const elementId = item.id;
                 const element = document.getElementById(elementId);
                 
+                // Cas spécifique pour la galerie d'images
+                if (elementId === 'gallery-data') {
+                    const galleryGrid = document.getElementById('dynamic-gallery-grid');
+                    if (galleryGrid && item.content) {
+                        try {
+                            const images = JSON.parse(item.content);
+                            galleryGrid.innerHTML = '';
+                            images.forEach((img, index) => {
+                                // Alternance automatique des tailles (large, normal, normal, wide) comme l'intégration d'origine
+                                let extraClass = '';
+                                if (index % 4 === 0) extraClass = 'large';
+                                else if (index % 4 === 3) extraClass = 'wide';
+
+                                galleryGrid.innerHTML += `
+                                    <div class="gallery-item ${extraClass}">
+                                        <img src="${img.url}" alt="${img.caption || 'Galerie'}">
+                                        <div class="gallery-caption">${img.caption || ''}</div>
+                                    </div>
+                                `;
+                            });
+                        } catch (e) {
+                            console.error("Erreur de format pour gallery-data JSON", e);
+                        }
+                    }
+                    return;
+                }
+
                 // Si l'élément existe dans la page courante
                 if (element) {
                     if (item.type === 'text') {

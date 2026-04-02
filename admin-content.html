@@ -45,6 +45,7 @@
                 <a href="#actualites"><i class="ph ph-books"></i> Cartes Actualités</a>
                 <a href="#presentation"><i class="ph ph-books"></i> Présentation de l'École</a>
                 <a href="#infos"><i class="ph ph-info"></i> Informations pratiques</a>
+                <a href="#galerie"><i class="ph ph-image"></i> Galerie</a>
                 <a href="#inscriptions"><i class="ph ph-student"></i> Inscriptions</a>
                 <a href="#files"><i class="ph ph-folder"></i> Fichiers & Images</a>
             </nav>
@@ -232,6 +233,34 @@
                     <div class="form-group">
                         <label for="dynamic-tenue-content">Tenue vestimentaire</label>
                         <textarea id="dynamic-tenue-content" rows="8"></textarea>
+                    </div>
+                </section>
+
+                <section id="galerie" class="content-section card">
+                    <div class="card-header">
+                        <h2>Galerie Photos (Notre année en images)</h2>
+                        <p>Gérez ici les images de la galerie. Vous pouvez en ajouter autant que vous le souhaitez.</p>
+                    </div>
+                    
+                    <div id="admin-gallery-list" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+                        <!-- Les images existantes apparaîtront ici -->
+                    </div>
+
+                    <div style="border-top: 1px solid #e2e8f0; margin-top: 2rem; padding-top: 1rem;">
+                        <h3>Ajouter une nouvelle image</h3>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label for="new-gallery-caption">Légende de l'image</label>
+                            <input type="text" id="new-gallery-caption" placeholder="Ex: Chorale de Noël">
+                        </div>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label>Uploader la photo</label>
+                            <div class="file-drop-area" id="dropAreaGallery" onclick="document.getElementById('uploadNewGalleryImg').click()" style="padding: 1rem; min-height: 80px;">
+                                <p style="font-size: 0.9rem; margin:0;" id="newGalleryImgLabel">Cliquez pour choisir un fichier</p>
+                                <input type="file" id="uploadNewGalleryImg" accept="image/*" style="display: none;">
+                            </div>
+                            <button type="button" id="btnAddGalleryImage" class="btn btn-primary" style="margin-top: 1rem;" disabled>Ajouter cette image</button>
+                            <small id="galleryUploadStatus" style="color: green; font-weight: bold; display: none; margin-top: 0.5rem;"></small>
+                        </div>
                     </div>
                 </section>
 
