@@ -47,6 +47,7 @@
                 <a href="#infos"><i class="ph ph-info"></i> Informations pratiques</a>
                 <a href="#galerie"><i class="ph ph-image"></i> Galerie</a>
                 <a href="#inscriptions"><i class="ph ph-student"></i> Inscriptions</a>
+                <a href="#dates"><i class="ph ph-calendar"></i> Calendrier & Dates</a>
                 <a href="#files"><i class="ph ph-folder"></i> Fichiers & Images</a>
             </nav>
             <div class="sidebar-footer">
@@ -276,6 +277,36 @@
                     <div class="form-group">
                         <label for="dynamic-reinscription-content">Texte des modalités de réinscription</label>
                         <textarea id="dynamic-reinscription-content" rows="6"></textarea>
+                    </div>
+                </section>
+
+                <section id="dates" class="content-section card">
+                    <div class="card-header">
+                        <h2>Calendrier & Dates Clés</h2>
+                        <p>Gérez ici les événements phares de l'école (rentrée, vacances, kermesse, etc).</p>
+                    </div>
+                    
+                    <div id="admin-dates-list" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+                        <!-- Les dates existantes apparaîtront ici -->
+                    </div>
+
+                    <div style="border-top: 1px solid #e2e8f0; margin-top: 2rem; padding-top: 1rem;">
+                        <h3>Ajouter une nouvelle date</h3>
+                        <div class="form-row" style="display:flex; gap:1rem; margin-top: 1rem;">
+                            <div class="form-group" style="flex:1;">
+                                <label for="new-date-value">Date</label>
+                                <input type="date" id="new-date-value">
+                            </div>
+                            <div class="form-group" style="flex:1;">
+                                <label for="new-date-theme">Thème</label>
+                                <input type="text" id="new-date-theme" placeholder="Ex: Vie Scolaire, Vacances...">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label for="new-date-desc">Description courte</label>
+                            <input type="text" id="new-date-desc" placeholder="Ex: Rentrée des classes de Maternelle">
+                        </div>
+                        <button type="button" id="btnAddDate" class="btn btn-primary" style="margin-top: 1rem;">Ajouter cette date</button>
                     </div>
                 </section>
 

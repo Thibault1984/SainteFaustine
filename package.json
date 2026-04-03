@@ -1,6 +1,7 @@
 {
   "name": "site-sainte-faustine",
   "version": "1.0.0",
+  "type": "module",
   "description": "Site web pour l'école Sainte Faustine",
   "scripts": {
     "dev": "vite",

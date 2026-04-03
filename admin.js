@@ -39,6 +39,46 @@ document.addEventListener('DOMContentLoaded', async () => {
         setTimeout(() => toast.classList.remove('show'), 3500);
     };
 
+    // -- Gestion des Dates Clés --
+    window.currentDates = [];
+    const renderAdminDates = () => {
+        const list = document.getElementById('admin-dates-list');
+        if (!list) return;
+        list.innerHTML = '';
+        if (window.currentDates.length === 0) {
+            list.innerHTML = '<p style="color: #64748b;">Aucune date clé pour l\'instant.</p>';
+            return;
+        }
+        window.currentDates.sort((a, b) => new Date(a.date) - new Date(b.date)).forEach((item, idx) => {
+            const dateObj = new Date(item.date);
+            const dateStr = dateObj.toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+            list.innerHTML += `
+                <div style="display:flex; align-items:center; gap: 1rem; padding: 1rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    <div style="flex:1;">
+                        <p style="font-weight: 600; margin-bottom: 0.25rem;">${dateStr} - ${item.theme}</p>
+                        <p style="font-size: 0.9rem; color: #64748b; margin: 0;">${item.description || ''}</p>
+                    </div>
+                    <button type="button" class="btn btn-outline" style="color: #ef4444; border-color: #ef4444;" onclick="deleteDate(${idx})">
+                        <i class="ph ph-trash"></i>
+                    </button>
+                </div>
+            `;
+        });
+    };
+
+    window.deleteDate = async (idx) => {
+        if (!confirm('Voulez-vous vraiment supprimer cette date ?')) return;
+        window.currentDates.splice(idx, 1);
+        renderAdminDates();
+        
+        await window.supabaseClient.from('site_content').upsert({ 
+            id: 'dates-data', 
+            content: JSON.stringify(window.currentDates), 
+            type: 'text' 
+        }, { onConflict: 'id' });
+        showToast("Date supprimée avec succès !");
+    };
+
     // 1. Charger les données actuelles
     window.currentGalleryImages = [];
     const renderAdminGallery = () => {
@@ -90,6 +130,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                     window.currentGalleryImages = JSON.parse(item.content);
                 } catch(e) { window.currentGalleryImages = []; }
                 renderAdminGallery();
+                return;
+            }
+            if (item.id === 'dates-data') {
+                try {
+                    window.currentDates = JSON.parse(item.content);
+                } catch(e) { window.currentDates = []; }
+                renderAdminDates();
                 return;
             }
             if (item.type === 'text') {
@@ -367,6 +414,56 @@ document.addEventListener('DOMContentLoaded', async () => {
                 galleryUploadStatus.textContent = "❌ Erreur de l'upload.";
                 alert("Erreur: " + err.message);
                 btnAddGalleryImage.disabled = false;
+            }
+        });
+    }
+
+    // Gestion des Dates (illimitées)
+    const btnAddDate = document.getElementById('btnAddDate');
+    const newDateValue = document.getElementById('new-date-value');
+    const newDateTheme = document.getElementById('new-date-theme');
+    const newDateDesc = document.getElementById('new-date-desc');
+
+    if (btnAddDate && newDateValue && newDateTheme) {
+        btnAddDate.addEventListener('click', async () => {
+            const dateStr = newDateValue.value;
+            const themeStr = newDateTheme.value.trim();
+            const descStr = newDateDesc ? newDateDesc.value.trim() : '';
+            
+            if (!dateStr || !themeStr) {
+                alert("Veuillez sélectionner au moins une date et un thème.");
+                return;
+            }
+
+            btnAddDate.disabled = true;
+
+            try {
+                window.currentDates.push({
+                    date: dateStr,
+                    theme: themeStr,
+                    description: descStr
+                });
+
+                const { error: dbError } = await window.supabaseClient.from('site_content').upsert({
+                    id: 'dates-data',
+                    content: JSON.stringify(window.currentDates),
+                    type: 'text'
+                }, { onConflict: 'id' });
+
+                if (dbError) throw dbError;
+
+                showToast("Date ajoutée avec succès !");
+                
+                newDateValue.value = "";
+                newDateTheme.value = "";
+                if (newDateDesc) newDateDesc.value = "";
+                
+                renderAdminDates();
+            } catch (err) {
+                console.error("Save error:", err);
+                alert("Erreur: " + err.message);
+            } finally {
+                btnAddDate.disabled = false;
             }
         });
     }

@@ -4,60 +4,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscriptions & Réinscriptions - Ecole Sainte Faustine</title>
-    <meta name="description" content="Modalités d'inscription et de réinscription à l'école Sainte Faustine.">
+    <title>Dates clés et Calendrier - Ecole Sainte Faustine</title>
+    <meta name="description" content="Calendrier des dates phares et évènements de l'école Sainte Faustine.">
     <link rel="stylesheet" href="style.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        .inscription-block {
-            background: white;
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            margin-bottom: 3rem;
-        }
-
-        .inscription-header {
+        .dates-container {
             display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .date-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 2rem;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--gray-light);
+            border-left: 5px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .inscription-header i {
-            font-size: 2.5rem;
-            color: var(--primary);
+        .date-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
         }
 
-        .inscription-header h2 {
-            font-family: 'Playfair Display', serif;
+        .date-badge {
+            background: var(--primary-light);
             color: var(--primary);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 100px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .date-badge .day {
             font-size: 2rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .date-badge .month-year {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .date-info {
+            flex-grow: 1;
+        }
+
+        .date-theme {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .date-desc {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-main);
             margin: 0;
         }
-
-        .download-action {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--primary);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            font-weight: 500;
-            text-decoration: none;
-            margin-top: 2rem;
-            transition: all 0.3s ease;
+        
+        .no-dates-msg {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            background: white;
+            border-radius: 12px;
         }
 
-        .download-action:hover {
-            background: #1a4f66;
-            transform: translateY(-2px);
+        @media (max-width: 600px) {
+            .date-card {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+                align-items: flex-start;
+            }
+            .date-badge {
+                width: 100%;
+                flex-direction: row;
+                gap: 0.5rem;
+                align-items: baseline;
+                padding: 0.75rem;
+            }
+            .date-badge .day {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -118,56 +171,18 @@
         <div class="container">
             <h1
                 style="color: white; font-family: 'Playfair Display', serif; font-size: 3.5rem; text-align: center; margin-bottom: 1rem;">
-                Inscriptions</h1>
+                Dates clés</h1>
             <p
                 style="color: rgba(255,255,255,0.9); text-align: center; font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
-                Modalités et dossiers pour la prochaine rentrée.</p>
+                Retrouvez le calendrier des événements phares de l'école.</p>
         </div>
     </header>
 
-    <main class="section bg-light">
+    <main class="section bg-light" style="min-height: 50vh;">
         <div class="container">
-            <!-- Modalités d'inscription -->
-            <div class="inscription-block reveal">
-                <div class="inscription-header">
-                    <i class="ph-fill ph-student"></i>
-                    <h2>Modalités d'Inscription</h2>
-                </div>
-                <div id="dynamic-inscription-content"
-                    style="line-height: 1.8; color: var(--text-light); font-size: 1.1rem;">
-                    <p>L'admission de nouveaux élèves est prononcée en fonction de la date de réception du dossier
-                        complet et des places disponibles. Un entretien préalable avec l'équipe de direction est
-                        systématiquement organisé.</p>
-                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
-                        <li>Télécharger et remplir le dossier ci-dessous.</li>
-                        <li>Joindre l'ensemble des pièces justificatives demandées.</li>
-                        <li>Prendre rendez-vous avec la direction au 06 27 57 62 57.</li>
-                    </ul>
-                </div>
-                <a id="dynamic-inscription-pdf" href="#" class="download-action">
-                    <i class="ph ph-file-pdf"></i> Télécharger le dossier d'inscription
-                </a>
-            </div>
-
-            <!-- Modalités de réinscription -->
-            <div class="inscription-block reveal" style="transition-delay: 200ms;">
-                <div class="inscription-header" style="border-color: var(--secondary);">
-                    <i class="ph-fill ph-users-three" style="color: var(--secondary);"></i>
-                    <h2 style="color: var(--secondary);">Modalités de Réinscription</h2>
-                </div>
-                <div id="dynamic-reinscription-content"
-                    style="line-height: 1.8; color: var(--text-light); font-size: 1.1rem;">
-                    <p>Pour les familles ayant déjà des enfants scolarisés dans notre établissement, une procédure
-                        simplifiée est mise en place. La priorité vous est accordée sous réserve du retour du dossier
-                        dans les délais impartis.</p>
-                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
-                        <li>Télécharger le formulaire de réinscription simplifié.</li>
-                        <li>Le remettre rempli au secrétariat de l'école ou à l'enseignant de votre enfant.</li>
-                    </ul>
-                </div>
-                <a id="dynamic-reinscription-pdf" href="#" class="download-action">
-                    <i class="ph ph-file-pdf"></i> Télécharger le formulaire de réinscription
-                </a>
+            <div class="dates-container" id="dynamic-dates-grid">
+                <!-- Les dates seront injectées ici par content-loader.js -->
+                <div class="no-dates-msg">Chargement des dates...</div>
             </div>
         </div>
     </main>
@@ -200,7 +215,7 @@
                 <div class="footer-col">
                     <h4>Informations</h4>
                     <ul>
-                        <li><a href="tarifs-horaires.html">S'inscrire</a></li>
+                        <li><a href="inscription.html">S'inscrire</a></li>
                         <li><a href="tarifs-horaires.html">Tarifs et Horaires</a></li>
                         <li><a href="#">Plan d'accès</a></li>
                         <li><a href="#">FAQ</a></li>
@@ -229,6 +244,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module" src="/supabase-setup.js"></script>
+    <script type="module" src="/parents.js"></script>
     <script type="module" src="/content-loader.js"></script>
     <script type="module" src="/script.js"></script>
 </body>
