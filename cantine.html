@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cantine - École Sainte Faustine</title>
+    <meta name="description" content="Informations sur la restauration scolaire, cantine, et inscriptions aux repas de l'école Sainte Faustine.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <header id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="./logo.png" alt="Logo Sainte Faustine" class="logo-img">
+                <span class="logo-text">Sainte Faustine</span>
+            </a>
+            
+            <nav class="desktop-nav">
+                <a href="index.html">Accueil</a>
+                <div class="dropdown">
+                    <a href="index.html#presentation" class="dropdown-toggle">Présentation <i class="ph ph-caret-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="ecole.html">L'école</a>
+                        <a href="projet-educatif.html">Projet éducatif</a>
+                        <a href="racines.html">Nos racines</a>
+                        <a href="institutrices.html">Les institutrices</a>
+                        <a href="direction.html">La direction</a>
+                        <a href="locaux.html">Les locaux</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="tarifs-horaires.html" class="dropdown-toggle">Infos pratiques <i class="ph ph-caret-down"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="tarifs-horaires.html">Tarifs et horaires</a>
+                        <a href="cantine.html">Cantine</a>
+                        <a href="tenue.html">Tenue vestimentaire</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline"><i class="ph ph-lock-key"></i> Admin</a>
+                <a href="login.html" class="btn btn-outline"><i class="ph ph-user"></i> Parents</a>
+                <a href="https://www.helloasso.com/associations/action-sociale-citoyenne-educative-du-poitou/formulaires/1" target="_blank" class="btn btn-primary d-none-mobile"><i class="ph ph-heart"></i> Faire un don</a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <button class="mobile-menu-btn">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <header class="page-header" style="background: linear-gradient(rgba(35, 96, 124, 0.9), rgba(35, 96, 124, 0.9)), url('https://images.unsplash.com/photo-1576867757603-05b134ebc379?q=80&w=2000&auto=format&fit=crop'); background-size: cover; background-position: center; padding: 120px 0 60px 0;">
+        <div class="container">
+            <h1 style="color: white; font-family: 'Playfair Display', serif; font-size: 3.5rem; text-align: center; margin-bottom: 1rem;">La Cantine</h1>
+            <p style="color: rgba(255,255,255,0.9); text-align: center; font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Informations sur la restauration scolaire, les inscriptions et le fonctionnement.</p>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="section bg-light">
+        <div class="container" style="max-width: 900px; background: white; padding: 3rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+            <div id="dynamic-cantine-content" class="content-body" style="font-size: 1.1rem; line-height: 1.8; color: var(--text-main);">
+                <!-- CMS Inject here -->
+                <p>Chargement du contenu en cours...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col brand-col">
+                    <a href="index.html" class="logo footer-logo">
+                        <span class="logo-text">Sainte Faustine</span>
+                    </a>
+                    <p class="footer-desc">En avant pour une nouvelle année de notre mieux, sous le regard de Dieu !</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/ecolesaintefaustinepoitiers/" target="_blank" aria-label="Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>L'École</h4>
+                    <ul>
+                        <li><a href="index.html#presentation">Présentation</a></li>
+                        <li><a href="projet-educatif.html">Projet Éducatif</a></li>
+                        <li><a href="institutrices.html">Les institutrices</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Informations</h4>
+                    <ul>
+                        <li><a href="inscription.html">S'inscrire</a></li>
+                        <li><a href="tarifs-horaires.html">Tarifs et Horaires</a></li>
+                        <li><a href="cantine.html">Cantine</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="contact-list">
+                        <li><i class="ph ph-map-pin"></i> Poitiers, France</li>
+                        <li><i class="ph ph-phone"></i> +33 0 00 00 00 00</li>
+                        <li><i class="ph ph-envelope-simple"></i> contact@ecolesaintefaustine.fr</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 École Sainte Faustine. Tous droits réservés.</p>
+                <div class="footer-legal">
+                    <a href="#">Mentions Légales</a>
+                    <a href="#">Politique de Confidentialité</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="/supabase-setup.js"></script>
+    <script type="module" src="/content-loader.js"></script>
+    <script type="module" src="/script.js"></script>
+</body>
+</html>

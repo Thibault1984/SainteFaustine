@@ -12,6 +12,11 @@
         rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
+        .topbar { background: #1e73be; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .topbar h1 { font-size: 1.25rem; font-weight: 600; font-family: 'Inter', sans-serif; margin: 0; display: flex; align-items: center; gap: 0.5rem;}
+        .btn-logout { background: transparent; border: 1px solid rgba(255,255,255,0.4); color: white; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: background 0.2s; font-family: 'Inter', sans-serif;}
+        .btn-logout:hover { background: rgba(255,255,255,0.2); }
+
         .dates-container {
             display: flex;
             flex-direction: column;
@@ -84,7 +89,7 @@
             color: var(--text-main);
             margin: 0;
         }
-        
+
         .no-dates-msg {
             text-align: center;
             padding: 3rem;
@@ -101,6 +106,7 @@
                 padding: 1.5rem;
                 align-items: flex-start;
             }
+
             .date-badge {
                 width: 100%;
                 flex-direction: row;
@@ -108,6 +114,7 @@
                 align-items: baseline;
                 padding: 0.75rem;
             }
+
             .date-badge .day {
                 font-size: 1.5rem;
             }
@@ -116,53 +123,14 @@
 </head>
 
 <body>
-    <!-- Navbar -->
-    <header id="navbar">
-        <div class="container nav-container">
-            <a href="index.html" class="logo">
-                <img src="./logo.png" alt="Logo Sainte Faustine" class="logo-img">
-                <span class="logo-text">Sainte Faustine</span>
+    <!-- Navbar (Espace Famille) -->
+    <header class="topbar">
+        <h1>
+            <a href="parents.html" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="ph ph-arrow-left"></i> Espace Famille
             </a>
-
-            <nav class="desktop-nav">
-                <a href="index.html">Accueil</a>
-                <!-- Menu déroulant Présentation -->
-                <div class="dropdown">
-                    <a href="index.html#presentation" class="dropdown-toggle">Présentation <i
-                            class="ph ph-caret-down"></i></a>
-                    <div class="dropdown-menu">
-                        <a href="ecole.html">L'école</a>
-                        <a href="projet-educatif.html">Projet éducatif</a>
-                        <a href="racines.html">Nos racines</a>
-                        <a href="institutrices.html">Les institutrices</a>
-                        <a href="direction.html">La direction</a>
-                        <a href="locaux.html">Les locaux</a>
-                    </div>
-                </div>
-                <!-- Menu déroulant Infos pratiques -->
-                <div class="dropdown">
-                    <a href="tarifs-horaires.html" class="dropdown-toggle">Infos pratiques <i
-                            class="ph ph-caret-down"></i></a>
-                    <div class="dropdown-menu">
-                        <a href="tarifs-horaires.html">Tarifs et horaires</a>
-                        <a href="tenue.html">Tenue vestimentaire</a>
-                    </div>
-                </div>
-                <a href="index.html#actualites">Actualités</a>
-            </nav>
-
-            <div class="nav-actions">
-                <a href="login.html" class="btn btn-outline"><i class="ph ph-lock-key"></i> Admin</a>
-                <a href="login.html" class="btn btn-outline"><i class="ph ph-user"></i> Parents</a>
-                <a href="https://www.helloasso.com/associations/action-sociale-citoyenne-educative-du-poitou/formulaires/1"
-                    target="_blank" class="btn btn-primary"><i class="ph ph-heart"></i> Faire un don</a>
-            </div>
-
-            <!-- Mobile menu button -->
-            <button class="mobile-menu-btn">
-                <i class="ph ph-list"></i>
-            </button>
-        </div>
+        </h1>
+        <button id="logoutBtn" class="btn-logout"><i class="ph ph-sign-out"></i> Déconnexion</button>
     </header>
 
     <!-- Page Header -->

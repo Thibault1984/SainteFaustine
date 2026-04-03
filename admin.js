@@ -80,6 +80,43 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     // 1. Charger les données actuelles
+    window.currentSpiCarouselImages = [];
+    window.renderAdminSpiCarousel = () => {
+        const list = document.getElementById('admin-spirituelle-carousel-list');
+        if (!list) return;
+        list.innerHTML = '';
+        if (window.currentSpiCarouselImages.length === 0) {
+            list.innerHTML = '<p style="color: #64748b;">Aucune image dans le carrousel pour le moment.</p>';
+            return;
+        }
+        window.currentSpiCarouselImages.forEach((img, idx) => {
+            list.innerHTML += `
+                <div style="display:flex; align-items:center; gap: 1rem; padding: 1rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    <img src="${img.url}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 4px;">
+                    <div style="flex:1;">
+                        <p style="font-weight: 600; margin-bottom: 0.25rem;">${img.caption || 'Sans légende'}</p>
+                    </div>
+                    <button type="button" class="btn btn-outline" style="color: #ef4444; border-color: #ef4444;" onclick="deleteSpiCarouselImage(${idx})">
+                        <i class="ph ph-trash"></i>
+                    </button>
+                </div>
+            `;
+        });
+    };
+
+    window.deleteSpiCarouselImage = async (idx) => {
+        if (!confirm('Voulez-vous vraiment supprimer cette image du carrousel ?')) return;
+        window.currentSpiCarouselImages.splice(idx, 1);
+        renderAdminSpiCarousel();
+        
+        await window.supabaseClient.from('site_content').upsert({ 
+            id: 'spirituelle-carousel-data', 
+            content: JSON.stringify(window.currentSpiCarouselImages), 
+            type: 'text' 
+        }, { onConflict: 'id' });
+        showToast("Image supprimée avec succès !");
+    };
+
     window.currentGalleryImages = [];
     const renderAdminGallery = () => {
         const list = document.getElementById('admin-gallery-list');
@@ -139,6 +176,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 renderAdminDates();
                 return;
             }
+            if (item.id === 'spirituelle-carousel-data') {
+                try {
+                    window.currentSpiCarouselImages = JSON.parse(item.content);
+                } catch(e) { window.currentSpiCarouselImages = []; }
+                renderAdminSpiCarousel();
+                return;
+            }
             if (item.type === 'text') {
                 const input = document.getElementById(item.id);
                 if (input) {
@@ -165,8 +209,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const textareasToRichText = [
             'dynamic-ecole-content', 'dynamic-projet-content', 'dynamic-racines-content',
             'dynamic-institutrices-content', 'dynamic-direction-content', 'dynamic-locaux-content',
-            'dynamic-tarifs-content', 'dynamic-horaires-content', 'dynamic-tenue-content',
-            'dynamic-inscription-content', 'dynamic-reinscription-content'
+            'dynamic-spirituelle-content', 'dynamic-tarifs-content', 'dynamic-horaires-content', 'dynamic-tenue-content',
+            'dynamic-cantine-content', 'dynamic-inscription-content', 'dynamic-reinscription-content'
         ];
         
         textareasToRichText.forEach(id => {
@@ -235,12 +279,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             { id: 'dynamic-ecole-content', content: document.getElementById('dynamic-ecole-content')?.value, type: 'text' },
             { id: 'dynamic-projet-content', content: document.getElementById('dynamic-projet-content')?.value, type: 'text' },
             { id: 'dynamic-racines-content', content: document.getElementById('dynamic-racines-content')?.value, type: 'text' },
+            { id: 'dynamic-spirituelle-content', content: document.getElementById('dynamic-spirituelle-content')?.value, type: 'text' },
             { id: 'dynamic-institutrices-content', content: document.getElementById('dynamic-institutrices-content')?.value, type: 'text' },
             { id: 'dynamic-direction-content', content: document.getElementById('dynamic-direction-content')?.value, type: 'text' },
             { id: 'dynamic-locaux-content', content: document.getElementById('dynamic-locaux-content')?.value, type: 'text' },
             { id: 'dynamic-tarifs-content', content: document.getElementById('dynamic-tarifs-content')?.value, type: 'text' },
             { id: 'dynamic-horaires-content', content: document.getElementById('dynamic-horaires-content')?.value, type: 'text' },
             { id: 'dynamic-tenue-content', content: document.getElementById('dynamic-tenue-content')?.value, type: 'text' },
+            { id: 'dynamic-cantine-content', content: document.getElementById('dynamic-cantine-content')?.value, type: 'text' },
             { id: 'dynamic-inscription-content', content: document.getElementById('dynamic-inscription-content')?.value, type: 'text' },
             { id: 'dynamic-reinscription-content', content: document.getElementById('dynamic-reinscription-content')?.value, type: 'text' },
             { id: 'n1-tag', content: document.getElementById('n1-tag')?.value, type: 'text' },
@@ -340,6 +386,87 @@ document.addEventListener('DOMContentLoaded', async () => {
     handleFileUpload('uploadFileN2', 'n2-link', 'statusN2', 'file_url');
     handleFileUpload('uploadFileN3', 'n3-link', 'statusN3', 'file_url');
 
+    // Gestion du carrousel Vie Spirituelle
+    const uploadNewSpiImgInput = document.getElementById('uploadNewSpiImg');
+    const newSpiImgLabel = document.getElementById('newSpiImgLabel');
+    const btnAddSpiImage = document.getElementById('btnAddSpiImage');
+    const spiUploadStatus = document.getElementById('spiUploadStatus');
+    const newSpiCaption = document.getElementById('new-spi-caption');
+
+    if (uploadNewSpiImgInput && btnAddSpiImage && newSpiCaption) {
+        uploadNewSpiImgInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            if (files.length > 0) {
+                newSpiImgLabel.textContent = files.length === 1 ? files[0].name : `${files.length} fichiers sélectionnés`;
+                btnAddSpiImage.disabled = false;
+            } else {
+                newSpiImgLabel.textContent = "Cliquez pour choisir un ou plusieurs fichiers";
+                btnAddSpiImage.disabled = true;
+            }
+        });
+
+        btnAddSpiImage.addEventListener('click', async () => {
+            const files = uploadNewSpiImgInput.files;
+            if (files.length === 0) return;
+
+            spiUploadStatus.style.display = "block";
+            spiUploadStatus.textContent = "Téléchargement en cours...";
+            spiUploadStatus.style.color = "#eab308";
+            btnAddSpiImage.disabled = true;
+
+            try {
+                const uploadPromises = Array.from(files).map(async (file, index) => {
+                    const fileExt = file.name.split('.').pop();
+                    const fileName = `spi-carousel-${Date.now()}-${index}.${fileExt}`;
+                    const filePath = `public/carousel/${fileName}`;
+
+                    const { error: uploadError } = await window.supabaseClient.storage
+                        .from(SUPABASE_BUCKET)
+                        .upload(filePath, file);
+
+                    if (uploadError) throw uploadError;
+
+                    const { data: publicUrlData } = window.supabaseClient.storage
+                        .from(SUPABASE_BUCKET)
+                        .getPublicUrl(filePath);
+
+                    return {
+                        url: publicUrlData.publicUrl,
+                        caption: newSpiCaption.value.trim()
+                    };
+                });
+
+                const newImages = await Promise.all(uploadPromises);
+                window.currentSpiCarouselImages.push(...newImages);
+
+                const { error: dbError } = await window.supabaseClient.from('site_content').upsert({
+                    id: 'spirituelle-carousel-data',
+                    content: JSON.stringify(window.currentSpiCarouselImages),
+                    type: 'text'
+                }, { onConflict: 'id' });
+
+                if (dbError) throw dbError;
+
+                spiUploadStatus.style.color = "#22c55e";
+                spiUploadStatus.textContent = "✔ Image ajoutée !";
+                showToast("Image ajoutée au carrousel !");
+                
+                uploadNewSpiImgInput.value = "";
+                newSpiCaption.value = "";
+                newSpiImgLabel.textContent = "Cliquez pour choisir un ou plusieurs fichiers";
+                setTimeout(() => { spiUploadStatus.style.display = "none"; }, 3000);
+                
+                renderAdminSpiCarousel();
+            } catch (err) {
+                console.error("Upload error:", err);
+                spiUploadStatus.style.color = "#ef4444";
+                spiUploadStatus.textContent = "❌ Erreur de l'upload.";
+                alert("Erreur: " + err.message);
+                btnAddSpiImage.disabled = false;
+            }
+        });
+    }
+
     // Gestion de la Galerie (illimitée)
     const uploadNewGalleryImgInput = document.getElementById('uploadNewGalleryImg');
     const newGalleryImgLabel = document.getElementById('newGalleryImgLabel');
@@ -349,19 +476,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (uploadNewGalleryImgInput && btnAddGalleryImage && newGalleryCaption) {
         uploadNewGalleryImgInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                newGalleryImgLabel.textContent = file.name;
+            const files = e.target.files;
+            if (files.length > 0) {
+                newGalleryImgLabel.textContent = files.length === 1 ? files[0].name : `${files.length} fichiers sélectionnés`;
                 btnAddGalleryImage.disabled = false;
             } else {
-                newGalleryImgLabel.textContent = "Cliquez pour choisir un fichier";
+                newGalleryImgLabel.textContent = "Cliquez pour choisir un ou plusieurs fichiers";
                 btnAddGalleryImage.disabled = true;
             }
         });
 
         btnAddGalleryImage.addEventListener('click', async () => {
-            const file = uploadNewGalleryImgInput.files[0];
-            if (!file) return;
+            const files = uploadNewGalleryImgInput.files;
+            if (files.length === 0) return;
 
             galleryUploadStatus.style.display = "block";
             galleryUploadStatus.textContent = "Téléchargement en cours...";
@@ -369,26 +496,30 @@ document.addEventListener('DOMContentLoaded', async () => {
             btnAddGalleryImage.disabled = true;
 
             try {
-                const fileExt = file.name.split('.').pop();
-                const fileName = `gallery-${Date.now()}.${fileExt}`;
-                const filePath = `public/gallery/${fileName}`;
+                const uploadPromises = Array.from(files).map(async (file, index) => {
+                    const fileExt = file.name.split('.').pop();
+                    const fileName = `gallery-${Date.now()}-${index}.${fileExt}`;
+                    const filePath = `public/gallery/${fileName}`;
 
-                const { error: uploadError } = await window.supabaseClient.storage
-                    .from(SUPABASE_BUCKET)
-                    .upload(filePath, file);
+                    const { error: uploadError } = await window.supabaseClient.storage
+                        .from(SUPABASE_BUCKET)
+                        .upload(filePath, file);
 
-                if (uploadError) throw uploadError;
+                    if (uploadError) throw uploadError;
 
-                const { data: publicUrlData } = window.supabaseClient.storage
-                    .from(SUPABASE_BUCKET)
-                    .getPublicUrl(filePath);
+                    const { data: publicUrlData } = window.supabaseClient.storage
+                        .from(SUPABASE_BUCKET)
+                        .getPublicUrl(filePath);
 
-                const publicUrl = publicUrlData.publicUrl;
-
-                window.currentGalleryImages.push({
-                    url: publicUrl,
-                    caption: newGalleryCaption.value.trim()
+                    return {
+                        url: publicUrlData.publicUrl,
+                        caption: newGalleryCaption.value.trim()
+                    };
                 });
+                
+                const newImages = await Promise.all(uploadPromises);
+
+                window.currentGalleryImages.push(...newImages);
 
                 const { error: dbError } = await window.supabaseClient.from('site_content').upsert({
                     id: 'gallery-data',
@@ -404,7 +535,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 
                 uploadNewGalleryImgInput.value = "";
                 newGalleryCaption.value = "";
-                newGalleryImgLabel.textContent = "Cliquez pour choisir un fichier";
+                newGalleryImgLabel.textContent = "Cliquez pour choisir un ou plusieurs fichiers";
                 setTimeout(() => { galleryUploadStatus.style.display = "none"; }, 3000);
                 
                 renderAdminGallery();

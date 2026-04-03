@@ -19,7 +19,7 @@
         .welcome-card { background: white; padding: 3rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; border-top: 5px solid #d29402;}
         .welcome-card h2 { color: #1e73be; font-size: 2.2rem; margin-bottom: 1rem; font-family: 'Playfair Display', serif;}
         .welcome-card p { color: #475569; font-size: 1.1rem; line-height: 1.6; max-width: 700px; margin: 0 auto;}
-        .actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+        .actions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; }
         .action-card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); text-align: center; display: block; text-decoration: none; color: inherit; transition: transform 0.2s;}
         .action-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
         .action-card i { font-size: 3rem; color: #1e73be; margin-bottom: 1rem; }
@@ -43,6 +43,11 @@
                 <i class="ph ph-files"></i>
                 <h3>Circulaires</h3>
                 <p>Notes de la direction et actualités privées.</p>
+            </a>
+            <a href="dates.html" class="action-card">
+                <i class="ph ph-calendar-check"></i>
+                <h3>Calendrier</h3>
+                <p>Retrouvez toutes les dates et évènements clés.</p>
             </a>
             <a href="#" class="action-card">
                 <i class="ph ph-images"></i>

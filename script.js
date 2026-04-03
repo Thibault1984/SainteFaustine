@@ -1,5 +1,46 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
+    // --- SESSION ET DÉCONNEXION GLOBALE ---
+    if (window.supabaseClient) {
+        try {
+            const { data: { session } } = await window.supabaseClient.auth.getSession();
+            if (session) {
+                const navActions = document.querySelector('.nav-actions');
+                if (navActions) {
+                    // Check role for dashboard link
+                    let dashboardLink = '#';
+                    const { data: roleData } = await window.supabaseClient
+                        .from('user_roles')
+                        .select('role')
+                        .eq('id', session.user.id)
+                        .single();
+                    
+                    if (roleData) {
+                        if (roleData.role === 'admin') dashboardLink = 'admin-content.html';
+                        if (roleData.role === 'parent') dashboardLink = 'parents.html';
+                    }
+
+                    // Rewrite the nav actions
+                    navActions.innerHTML = `
+                        <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                            <a href="${dashboardLink}" class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;"><i class="ph ph-user-circle"></i> Mon Espace</a>
+                            <button id="globalLogoutBtn" class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; cursor:pointer; background: transparent;"><i class="ph ph-sign-out"></i> Déconnexion</button>
+                        </div>
+                        <a href="https://www.helloasso.com/associations/action-sociale-citoyenne-educative-du-poitou/formulaires/1" target="_blank" class="btn btn-primary d-none-mobile"><i class="ph ph-heart"></i> Faire un don</a>
+                    `;
+
+                    document.getElementById('globalLogoutBtn').addEventListener('click', async () => {
+                        await window.supabaseClient.auth.signOut();
+                        window.location.reload();
+                    });
+                }
+            }
+        } catch(e) {
+            console.error("Erreur de session", e);
+        }
+    }
+    // --------------------------------------
+    
     // --- CMS / DYNAMIC DATA HYDRATION ---
     const localStore = localStorage.getItem('siteSainteFaustineData');
     if (localStore) {

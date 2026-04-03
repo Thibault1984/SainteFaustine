@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     const monthYear = dateObj.toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' });
                                     
                                     const cardObj = document.createElement('div');
-                                    cardObj.className = 'date-card reveal';
+                                    cardObj.className = 'date-card';
                                     cardObj.innerHTML = `
                                         <div class="date-badge">
                                             <span class="day">${day}</span>
@@ -57,46 +57,65 @@ document.addEventListener('DOMContentLoaded', async () => {
                     return;
                 }
 
-                // Cas spécifique pour la galerie d'images
-                if (elementId === 'gallery-data') {
-                    const galleryGrid = document.getElementById('dynamic-gallery-grid');
-                    if (galleryGrid && item.content) {
+
+                // Cas spécifique pour le carrousel Vie Spirituelle
+                if (elementId === 'spirituelle-carousel-data') {
+                    const carouselContainer = document.getElementById('dynamic-spirituelle-carousel');
+                    const navControls = document.getElementById('carousel-nav-controls');
+                    if (carouselContainer && item.content) {
                         try {
                             const images = JSON.parse(item.content);
-                            galleryGrid.innerHTML = '';
-                            images.forEach((img, index) => {
-                                // Alternance automatique des tailles (large, normal, normal, wide)
-                                let extraClass = '';
-                                if (index % 4 === 0) extraClass = 'large';
-                                else if (index % 4 === 3) extraClass = 'wide';
-
-                                const itemDiv = document.createElement('div');
-                                itemDiv.className = `gallery-item ${extraClass}`;
-
-                                const imgEl = document.createElement('img');
-                                imgEl.src = img.url;
-                                imgEl.alt = img.caption || 'Galerie';
-
-                                itemDiv.addEventListener('click', () => {
-                                    const lbImg = document.getElementById('lightbox-img');
-                                    const lb = document.getElementById('lightbox');
-                                    if (lbImg && lb) {
-                                        lbImg.src = img.url;
-                                        lb.classList.add('show');
-                                    }
+                            carouselContainer.innerHTML = '';
+                            if (images.length === 0) {
+                                carouselContainer.innerHTML = '<div style="width: 100%; display: flex; align-items: center; justify-content: center; height: 100%; color: #94a3b8; font-size: 1.1rem;">Aucune image pour l\'instant</div>';
+                            } else {
+                                images.forEach((imgObj) => {
+                                    const imgEl = document.createElement('img');
+                                    imgEl.src = imgObj.url;
+                                    imgEl.alt = imgObj.caption || "Image du carrousel vie spirituelle";
+                                    carouselContainer.appendChild(imgEl);
                                 });
+                                if (navControls && images.length > 1) {
+                                    navControls.style.display = 'block';
+                                }
+                            }
+                        } catch(e) { console.error("Erreur parsing carrousel spi:", e); }
+                    }
+                    return;
+                }
 
-                                const captionDiv = document.createElement('div');
-                                captionDiv.className = 'gallery-caption';
-                                captionDiv.textContent = img.caption || '';
+                // Cas spécifique pour la galerie d'images
+                if (elementId === 'gallery-data') {
+                    const galleryCarousel = document.getElementById('dynamic-gallery-carousel');
+                    const navControls = document.getElementById('gallery-carousel-nav');
+                    if (galleryCarousel && item.content) {
+                        try {
+                            const images = JSON.parse(item.content);
+                            galleryCarousel.innerHTML = '';
+                            if (images.length === 0) {
+                                galleryCarousel.innerHTML = '<div style="width: 100%; display: flex; align-items: center; justify-content: center; height: 100%; color: #94a3b8; font-size: 1.1rem;">Aucune image pour l\'instant</div>';
+                            } else {
+                                images.forEach((img) => {
+                                    const imgEl = document.createElement('img');
+                                    imgEl.src = img.url;
+                                    imgEl.alt = img.caption || 'Galerie';
+                                    
+                                    imgEl.addEventListener('click', () => {
+                                        const lbImg = document.getElementById('lightbox-img');
+                                        const lb = document.getElementById('lightbox');
+                                        if (lbImg && lb) {
+                                            lbImg.src = img.url;
+                                            lb.classList.add('show');
+                                        }
+                                    });
 
-                                itemDiv.appendChild(imgEl);
-                                itemDiv.appendChild(captionDiv);
-                                galleryGrid.appendChild(itemDiv);
-                            });
-                        } catch (e) {
-                            console.error("Erreur de format pour gallery-data JSON", e);
-                        }
+                                    galleryCarousel.appendChild(imgEl);
+                                });
+                                if (navControls && images.length > 1) {
+                                    navControls.style.display = 'block';
+                                }
+                            }
+                        } catch(e) { console.error("Erreur de format pour gallery-data JSON", e); }
                     }
                     return;
                 }

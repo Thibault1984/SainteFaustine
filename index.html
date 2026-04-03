@@ -107,11 +107,7 @@
                         <h3>Garderie</h3>
                         <p>Horaires du soir et matin</p>
                     </a>
-                    <a href="dates.html" class="quick-card">
-                        <div class="icon-box"><i class="ph ph-calendar-check"></i></div>
-                        <h3>Calendrier</h3>
-                        <p>Dates à retenir (Accès restreint)</p>
-                    </a>
+
                     <a href="inscription.html" class="quick-card accent-card">
                         <div class="icon-box"><i class="ph ph-student"></i></div>
                         <h3>S'inscrire</h3>
@@ -141,7 +137,7 @@
                             <h3 id="n1-title">Portes Ouvertes 2026</h3>
                             <p id="n1-text">Venez découvrir nos locaux, rencontrer l'équipe pédagogique et poser toutes
                                 vos questions sur les inscriptions.</p>
-                            <a id="n1-link" href="#" class="text-link">En savoir plus <i
+                            <a id="n1-link" href="portes-ouvertes.html" class="text-link">En savoir plus <i
                                     class="ph ph-arrow-right"></i></a>
                         </div>
                     </article>
@@ -173,7 +169,7 @@
                             <h3 id="n3-title">Messe des écoliers</h3>
                             <p id="n3-text">Messe célébrée cette semaine pour tous les élèves, parents et équipe en la
                                 paroisse de l'école.</p>
-                            <a id="n3-link" href="#" class="text-link">Voir les détails <i
+                            <a id="n3-link" href="vie-spirituelle.html" class="text-link">Voir les détails <i
                                     class="ph ph-arrow-right"></i></a>
                         </div>
                     </article>
@@ -189,8 +185,14 @@
                     <p>Découvrez la vie bouillonnante de notre établissement au fil des mois.</p>
                 </div>
 
-                <div class="gallery-grid reveal" id="dynamic-gallery-grid">
-                    <!-- Les photos de la galerie seront injectées ici par JavaScript via Supabase -->
+                <div class="carousel-wrapper reveal">
+                    <div id="dynamic-gallery-carousel" class="custom-carousel">
+                        <div style="width: 100%; display: flex; align-items: center; justify-content: center; height: 100%; color: #94a3b8; font-size: 1.1rem;">Aucune image pour l'instant</div>
+                    </div>
+                    <div id="gallery-carousel-nav" class="carousel-nav" style="display: none;">
+                        <button id="gallery-prev" class="carousel-btn carousel-prev" aria-label="Image précédente"><i class="ph ph-caret-left"></i></button>
+                        <button id="gallery-next" class="carousel-btn carousel-next" aria-label="Image suivante"><i class="ph ph-caret-right"></i></button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -322,10 +324,56 @@
         }
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('dynamic-gallery-carousel');
+            const prevBtn = document.getElementById('gallery-prev');
+            const nextBtn = document.getElementById('gallery-next');
+            let index = 0;
+            
+            const updateCarousel = () => {
+                if (!track) return;
+                const width = track.clientWidth;
+                track.style.transform = `translateX(-${index * width}px)`;
+            };
+
+            const goNext = () => {
+                if (!track) return;
+                const count = track.childElementCount;
+                if(count <= 1) return;
+                index = (index + 1) % count;
+                updateCarousel();
+            };
+
+            if(prevBtn && nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    goNext();
+                    resetInterval();
+                });
+                prevBtn.addEventListener('click', () => {
+                    if (!track) return;
+                    const count = track.childElementCount;
+                    if(count <= 1) return;
+                    index = (index - 1 + count) % count;
+                    updateCarousel();
+                    resetInterval();
+                });
+            }
+            
+            window.addEventListener('resize', updateCarousel);
+
+            // Auto-scroll every 2s
+            let scrollInterval = setInterval(goNext, 2000);
+            
+            const resetInterval = () => {
+                clearInterval(scrollInterval);
+                scrollInterval = setInterval(goNext, 2000);
+            };
+        });
+    </script>
     <script type="module" src="/supabase-setup.js"></script>
     <script type="module" src="/content-loader.js"></script>
     <script type="module" src="/script.js"></script>
 </body>
-
 </html>
