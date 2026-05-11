@@ -37,7 +37,6 @@
             <h2>Bienvenue dans votre Espace Sécurisé</h2>
             <p>Cet espace est exclusivement réservé aux parents de l'école. Vous y retrouverez très prochainement l'ensemble des documents administratifs, circulaires internes et livrets scolaires.</p>
         </div>
-        
         <div class="actions-grid">
             <a href="#" class="action-card">
                 <i class="ph ph-files"></i>
@@ -54,8 +53,75 @@
                 <h3>Albums Photos</h3>
                 <p>Retrouvez vos enfants en images (accès restreint).</p>
             </a>
+            <a href="#" class="action-card" id="reinscriptionBtn">
+                <i class="ph ph-user-plus"></i>
+                <h3>Réinscription</h3>
+                <p>Réinscrire vos enfants pour l'année 2026-2027.</p>
+            </a>
         </div>
     </main>
+
+    <!-- Modal Réinscription -->
+    <div id="reinscriptionModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModalBtn"><i class="ph ph-x"></i></button>
+            <div class="modal-header">
+                <i class="ph-fill ph-student"></i>
+                <h2>Réinscription 2026-2027</h2>
+                <p>Veuillez compléter les informations ci-dessous pour chaque enfant.</p>
+            </div>
+            
+            <form id="reinscriptionForm">
+                <div class="form-section">
+                    <label for="nomFamille">Nom de famille</label>
+                    <input type="text" id="nomFamille" name="nomFamille" required placeholder="Ex: Martin">
+                </div>
+
+                <div id="enfantsContainer">
+                    <!-- Les enfants seront ajoutés ici dynamiquement -->
+                </div>
+
+                <button type="button" id="addEnfantBtn" class="btn-secondary">
+                    <i class="ph ph-plus"></i> Ajouter un enfant
+                </button>
+
+                <hr>
+
+                <div class="form-section">
+                    <label>Frais Annexes</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="fraisAnnexes" value="base" checked>
+                            <span>Cotisation de base (60€) - Matériel & Assurance</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="fraisAnnexes" value="majore">
+                            <span>Cotisation majorée (260€) - Soutien (reçu fiscal)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label>Mode de règlement souhaité</label>
+                    <select name="modeReglement" required>
+                        <option value="virement">Virement bancaire (recommandé)</option>
+                        <option value="cheque">Chèque (10 chèques à l'ordre de l'ASOCEP)</option>
+                    </select>
+                </div>
+
+                <div class="form-section checkbox-item">
+                    <input type="checkbox" id="autorisationImage" name="autorisationImage">
+                    <label for="autorisationImage">J'autorise l'établissement à utiliser les photos/vidéos de mon enfant pour la communication de l'école.</label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="submitFormBtn">
+                        <span>Valider la réinscription</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Connect Supabase for Session Checking -->
     <script type="module" src="/supabase-setup.js"></script>

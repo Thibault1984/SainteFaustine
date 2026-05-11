@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
+    console.log("Content loader script initialized");
     if (!window.supabaseClient) {
         console.error("Supabase client not initialized.");
         return;
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             contentData.forEach(item => {
                 const elementId = item.id;
                 const element = document.getElementById(elementId);
-                
+
                 // Cas spécifique pour les dates clés
                 if (elementId === 'dates-data') {
                     const datesGrid = document.getElementById('dynamic-dates-grid');
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     const dateObj = new Date(dateItem.date);
                                     const day = dateObj.toLocaleDateString('fr-FR', { day: '2-digit' });
                                     const monthYear = dateObj.toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' });
-                                    
+
                                     const cardObj = document.createElement('div');
                                     cardObj.className = 'date-card';
                                     cardObj.innerHTML = `
@@ -50,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     datesGrid.appendChild(cardObj);
                                 });
                             }
-                        } catch(e) {
+                        } catch (e) {
                             console.error("Erreur de format pour dates-data JSON", e);
                         }
                     }
@@ -79,7 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     navControls.style.display = 'block';
                                 }
                             }
-                        } catch(e) { console.error("Erreur parsing carrousel spi:", e); }
+                        } catch (e) { console.error("Erreur parsing carrousel spi:", e); }
                     }
                     return;
                 }
@@ -99,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     const imgEl = document.createElement('img');
                                     imgEl.src = img.url;
                                     imgEl.alt = img.caption || 'Galerie';
-                                    
+
                                     imgEl.addEventListener('click', () => {
                                         const lbImg = document.getElementById('lightbox-img');
                                         const lb = document.getElementById('lightbox');
@@ -115,7 +116,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     navControls.style.display = 'block';
                                 }
                             }
-                        } catch(e) { console.error("Erreur de format pour gallery-data JSON", e); }
+                        } catch (e) { console.error("Erreur de format pour gallery-data JSON", e); }
                     }
                     return;
                 }
@@ -132,7 +133,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         // comme dynamic-inscription-pdf-1, dynamic-inscription-pdf-2
                     }
                 }
-                
+
                 // Cas spécifique pour le dossier d'inscription qui a de multiples liens
                 if (elementId === 'dynamic-inscription-pdf') {
                     const link1 = document.getElementById('dynamic-inscription-pdf-1');
@@ -142,10 +143,107 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             });
         }
+
+        // --- CHARGEMENT DES TARIFS STRUCTURÉS ---
+        const scolariteContainer = document.getElementById('dynamic-scolarite-table');
+        console.log("Pricing container found:", !!scolariteContainer);
+        if (scolariteContainer) {
+            const { data: scolData, error: scolError } = await window.supabaseClient
+                .from('tarifs_scolarite')
+                .select('*')
+                .order('rang_enfant', { ascending: true });
+
+            if (scolError) {
+                console.error("Error fetching scolarite data:", scolError);
+                scolariteContainer.innerHTML = `<p style="color: red;">Erreur de chargement des tarifs : ${scolError.message}. Vérifiez que la table tarifs_scolarite existe.</p>`;
+            } else if (scolData) {
+                console.log("Scolarite data fetched:", scolData.length, "rows");
+                if (scolData.length === 0) {
+                    scolariteContainer.innerHTML = `<p>Aucune donnée de tarif trouvée.</p>`;
+                    return;
+                }
+                let html = `
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre d'enfants</th>
+                                <th>Frais de scolarité <br> / mois / enfant</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                let runningTotal = 0;
+                scolData.forEach(item => {
+                    runningTotal += parseFloat(item.montant_mensuel);
+                    html += `
+                        <tr>
+                            <td>${item.description}</td>
+                            <td>${parseFloat(item.montant_mensuel).toLocaleString('fr-FR', { minimumFractionDigits: 2 })} €</td>
+                            <td>${runningTotal.toLocaleString('fr-FR', { minimumFractionDigits: 2 })} €</td>
+                        </tr>
+                    `;
+                });
+
+                html += `</tbody></table>`;
+                scolariteContainer.innerHTML = html;
+            }
+        }
+
+        // --- CHARGEMENT DES TARIFS RESTAURATION ---
+        const restorationContainer = document.getElementById('dynamic-restoration-table');
+        if (restorationContainer) {
+            const { data: restData, error: restError } = await window.supabaseClient
+                .from('tarifs_restauration')
+                .select('*')
+                .order('jours_semaine', { ascending: false })
+                .order('trimestre', { ascending: true });
+
+            if (!restError && restData) {
+                // Group by days
+                const grouped = {};
+                restData.forEach(item => {
+                    if (!grouped[item.jours_semaine]) grouped[item.jours_semaine] = [];
+                    grouped[item.jours_semaine].push(item);
+                });
+
+                let html = `
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Forfait</th>
+                                <th rowspan="2">Trimestre</th>
+                                <th colspan="2">Surveillance</th>
+                            </tr>
+                            <tr>
+                                <th>Avec</th>
+                                <th>Sans</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                Object.keys(grouped).sort((a, b) => b - a).forEach(jours => {
+                    grouped[jours].sort((a, b) => a.trimestre - b.trimestre).forEach((item, idx) => {
+                        html += `
+                            <tr>
+                                ${idx === 0 ? `<td rowspan="${grouped[jours].length}" style="font-weight:600; text-align:center; vertical-align:middle;">${jours} j/sem.</td>` : ''}
+                                <td style="text-align:center;">T${item.trimestre}</td>
+                                <td>${parseFloat(item.prix_standard).toLocaleString('fr-FR', { minimumFractionDigits: 2 })} €</td>
+                                <td style="color: #64748b; font-style: italic;">${parseFloat(item.prix_surveillance).toLocaleString('fr-FR', { minimumFractionDigits: 2 })} €</td>
+                            </tr>
+                        `;
+                    });
+                });
+
+                restorationContainer.innerHTML = html;
+            }
+        }
     } catch (err) {
         console.error("Unexpected error loading content:", err);
     }
-    
+
     // Fermeture de la Lightbox
     const lbContainer = document.getElementById('lightbox');
     if (lbContainer) {

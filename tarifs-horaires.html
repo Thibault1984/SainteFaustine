@@ -42,7 +42,13 @@
             gap: 3rem;
         }
 
-        @media (min-width: 768px) {
+        @media (min-width: 1024px) {
+            .info-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
             .info-grid {
                 grid-template-columns: 1fr 1fr;
             }
@@ -61,10 +67,13 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            color: var(--primary-color);
+            font-size: 1.5rem;
+            color: var(--primary);
             margin-bottom: 1.5rem;
-            font-family: var(--font-heading);
-            font-size: 1.75rem;
+        }
+
+        .content-section .container {
+            max-width: 90%;
         }
 
         .info-card h2 i {
@@ -156,7 +165,8 @@
                 </div>
                 <!-- Menu déroulant Infos pratiques -->
                 <div class="dropdown">
-                    <a href="tarifs-horaires.html" class="dropdown-toggle active">Infos pratiques <i class="ph ph-caret-down"></i></a>
+                    <a href="tarifs-horaires.html" class="dropdown-toggle active">Infos pratiques <i
+                            class="ph ph-caret-down"></i></a>
                     <div class="dropdown-menu">
                         <a href="tarifs-horaires.html">Tarifs et horaires</a>
                         <a href="tenue.html">Tenue vestimentaire</a>
@@ -191,7 +201,7 @@
             <div class="container">
                 <div class="info-grid">
 
-                    <!-- Colonne Inscriptions et Tarifs -->
+                    <!-- Colonne Inscriptions -->
                     <div class="info-card reveal">
                         <h2><i class="ph-fill ph-student"></i> Inscription et Tarifs</h2>
                         <div id="dynamic-tarifs-content">
@@ -207,31 +217,39 @@
                                     réception du dossier complet et des places disponibles. Un entretien avec les
                                     parents et une demi-journée d'évaluation pour l'enfant peuvent être requis.</li>
                             </ul>
-                            <a href="inscription.html" class="btn btn-primary btn-outline" style="margin-top: 1rem;">Aller sur la page</a>
+                            <a href="inscription.html" class="btn btn-primary btn-outline"
+                                style="margin-top: 1rem;">Aller sur la page</a>
 
-                            <h3>Tarifs de scolarité</h3>
-                            <div class="highlight-box">
-                                <p><strong>Frais de dossier :</strong> 50 € par famille (non remboursables en cas
-                                    d'annulation).</p>
-                                <p><strong>Frais de fournitures et d'assurance :</strong> 60 € par enfant par an.</p>
+                            <div style="margin-top: 2rem;">
+                                <h3>Bourses et Solidarité</h3>
+                                <p>Les difficultés financières ne doivent pas être un obstacle à l'inscription de votre
+                                    enfant. Des bourses peuvent être demandées :</p>
+                                <ul>
+                                    <li>Auprès de l'<strong>AES</strong> (Association Education Solidarité).</li>
+                                    <li>Sur le fonds de solidarité propre à notre école.</li>
+                                </ul>
+                                <p><strong>Contact :</strong> presidence.asso@ecolesaintefaustine.fr</p>
                             </div>
+                        </div>
+                    </div>
 
-                            <p>Afin de pourvoir aux charges de l’école (loyer, salaires, charges sociales, etc.), nous
-                                proposons un modèle de contribution :</p>
-                            <ul>
-                                <li><strong>Contribution de soutien :</strong> 260 € (Grâce à la déduction fiscale de
-                                    66%, le coût de revient net d'impôt est de 88,40 €).</li>
-                            </ul>
+                    <!-- Colonne Tarifs -->
+                    <div class="info-card reveal">
+                        <h2><i class="ph-fill ph-wallet"></i> Tarifs de scolarité</h2>
 
-                            <h3>Bourses et Solidarité</h3>
-                            <p>Les difficultés financières ne doivent pas être un obstacle à l'inscription de votre
-                                enfant. Des bourses peuvent être demandées :</p>
-                            <ul>
-                                <li>Auprès de l'<strong>AES</strong> (Association Education Solidarité).</li>
-                                <li>Sur le fonds de solidarité propre à notre école.</li>
-                            </ul>
-                            <p><strong>Contact :</strong> presidence.asso@ecolesaintefaustine.fr ou par téléphone au 07
-                                82 87 39 86.</p>
+                        <div class="highlight-box">
+                            <p><strong>Frais de dossier :</strong> 50 € par famille (non remboursable).</p>
+                            <p><strong>Fournitures & Assurance :</strong> 60 € par enfant par an.</p>
+                        </div>
+
+                        <div id="dynamic-scolarite-table" class="pricing-table-container">
+                            <!-- Chargé dynamiquement -->
+                        </div>
+
+                        <div class="highlight-box" style="border-left-color: var(--primary);">
+                            <p><strong>Modèle de soutien :</strong> Afin de pourvoir aux charges de l’école, nous
+                                proposons une contribution de soutien de 260 € (88,40 € net après déduction fiscale).
+                            </p>
                         </div>
                     </div>
 
@@ -283,6 +301,9 @@
                             <p>Actuellement, l'école ne propose <strong>pas de garderie périscolaire</strong>.
                                 Toutefois, en cas de besoin spécifique, l'équipe se tient à l'écoute des familles pour
                                 étudier des solutions ponctuelles.</p>
+                        </div>
+                        <div id="dynamic-restoration-table" class="pricing-table-container">
+                            <!-- Chargé dynamiquement -->
                         </div>
                     </div>
                 </div>

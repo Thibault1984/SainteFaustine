@@ -39,6 +39,124 @@ document.addEventListener('DOMContentLoaded', async () => {
         setTimeout(() => toast.classList.remove('show'), 3500);
     };
 
+    // -- Gestion des Tarifs --
+    window.currentScolarite = [];
+    window.currentRestauration = [];
+
+    const loadPricingData = async () => {
+        const { data: scolData } = await window.supabaseClient.from('tarifs_scolarite').select('*').order('rang_enfant', { ascending: true });
+        const { data: restData } = await window.supabaseClient.from('tarifs_restauration').select('*').order('jours_semaine', { ascending: false }).order('trimestre', { ascending: true });
+        
+        if (scolData) window.currentScolarite = scolData;
+        if (restData) window.currentRestauration = restData;
+        
+        renderAdminScolarite();
+        renderAdminRestauration();
+    };
+
+    const renderAdminScolarite = () => {
+        const container = document.getElementById('admin-scolarite-table');
+        if (!container) return;
+        
+        let html = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Montant Mensuel (€)</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+        
+        window.currentScolarite.forEach((item, idx) => {
+            html += `
+                <tr>
+                    <td><input type="text" value="${item.description}" onchange="updateScolarite(${idx}, 'description', this.value)"></td>
+                    <td><input type="number" step="0.01" value="${item.montant_mensuel}" onchange="updateScolarite(${idx}, 'montant_mensuel', this.value)"></td>
+                </tr>
+            `;
+        });
+        
+        html += `</tbody></table>`;
+        container.innerHTML = html;
+    };
+
+    window.updateScolarite = (idx, field, value) => {
+        window.currentScolarite[idx][field] = field === 'montant_mensuel' ? parseFloat(value) : value;
+    };
+
+    const renderAdminRestauration = () => {
+        const container = document.getElementById('admin-restoration-table');
+        if (!container) return;
+        
+        // Group by days
+        const grouped = {};
+        window.currentRestauration.forEach(item => {
+            if (!grouped[item.jours_semaine]) grouped[item.jours_semaine] = [];
+            grouped[item.jours_semaine].push(item);
+        });
+
+        let html = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Jours/Semaine</th>
+                        <th>Trimestre</th>
+                        <th>Prix Standard (€)</th>
+                        <th>Prix Surveillance (€)</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        Object.keys(grouped).sort((a, b) => b - a).forEach(jours => {
+            grouped[jours].sort((a, b) => a.trimestre - b.trimestre).forEach((item, idx) => {
+                const originalIdx = window.currentRestauration.findIndex(r => r.id === item.id);
+                html += `
+                    <tr>
+                        ${idx === 0 ? `<td rowspan="${grouped[jours].length}" style="font-weight:600; text-align:center; vertical-align:middle;">${jours} jours</td>` : ''}
+                        <td>T${item.trimestre}</td>
+                        <td><input type="number" step="0.01" value="${item.prix_standard}" onchange="updateRestauration(${originalIdx}, 'prix_standard', this.value)"></td>
+                        <td><input type="number" step="0.01" value="${item.prix_surveillance}" onchange="updateRestauration(${originalIdx}, 'prix_surveillance', this.value)"></td>
+                    </tr>
+                `;
+            });
+        });
+
+        html += `</tbody></table>`;
+        container.innerHTML = html;
+    };
+
+    window.updateRestauration = (idx, field, value) => {
+        window.currentRestauration[idx][field] = parseFloat(value);
+    };
+
+    const savePricing = async () => {
+        try {
+            // Save Scolarite
+            for (const item of window.currentScolarite) {
+                await window.supabaseClient.from('tarifs_scolarite').update({
+                    description: item.description,
+                    montant_mensuel: item.montant_mensuel
+                }).eq('id', item.id);
+            }
+            
+            // Save Restauration
+            for (const item of window.currentRestauration) {
+                await window.supabaseClient.from('tarifs_restauration').update({
+                    prix_standard: item.prix_standard,
+                    prix_surveillance: item.prix_surveillance
+                }).eq('id', item.id);
+            }
+            
+            showToast("Tarifs enregistrés avec succès !");
+        } catch (err) {
+            console.error("Save pricing error:", err);
+            alert("Erreur lors de l'enregistrement des tarifs.");
+        }
+    };
+
     // -- Gestion des Dates Clés --
     window.currentDates = [];
     const renderAdminDates = () => {
@@ -202,6 +320,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     await loadData();
+    await loadPricingData();
 
     // Initialiser l'éditeur Jodit
     if (typeof Jodit !== 'undefined') {
@@ -210,7 +329,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             'dynamic-ecole-content', 'dynamic-projet-content', 'dynamic-racines-content',
             'dynamic-institutrices-content', 'dynamic-direction-content', 'dynamic-locaux-content',
             'dynamic-spirituelle-content', 'dynamic-tarifs-content', 'dynamic-horaires-content', 'dynamic-tenue-content',
-            'dynamic-cantine-content', 'dynamic-inscription-content', 'dynamic-reinscription-content'
+            'dynamic-cantine-content', 'dynamic-inscription-content', 'dynamic-reinscription-content',
+            'dynamic-pricing-restoration-content', 'dynamic-pricing-tuition-content'
         ];
         
         textareasToRichText.forEach(id => {
@@ -289,6 +409,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             { id: 'dynamic-cantine-content', content: document.getElementById('dynamic-cantine-content')?.value, type: 'text' },
             { id: 'dynamic-inscription-content', content: document.getElementById('dynamic-inscription-content')?.value, type: 'text' },
             { id: 'dynamic-reinscription-content', content: document.getElementById('dynamic-reinscription-content')?.value, type: 'text' },
+            { id: 'dynamic-pricing-restoration-content', content: document.getElementById('dynamic-pricing-restoration-content')?.value, type: 'text' },
+            { id: 'dynamic-pricing-tuition-content', content: document.getElementById('dynamic-pricing-tuition-content')?.value, type: 'text' },
             { id: 'n1-tag', content: document.getElementById('n1-tag')?.value, type: 'text' },
             { id: 'n1-date', content: document.getElementById('n1-date')?.value, type: 'text' },
             { id: 'n1-title', content: document.getElementById('n1-title')?.value, type: 'text' },
@@ -314,6 +436,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         showToast("Textes enregistrés avec succès !");
+        await savePricing();
     });
 
     // 3. Gérer l'upload de fichiers

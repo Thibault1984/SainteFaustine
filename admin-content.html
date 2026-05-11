@@ -201,9 +201,11 @@
 
                     <div style="border-top: 1px solid #e2e8f0; margin-top: 2rem; padding-top: 1rem;">
                         <h3>Carrousel Vie Spirituelle</h3>
-                        <p style="font-size: 0.95rem; color: #64748b; margin-bottom: 1rem;">Gérez ici les images du carrousel de droite de la page Vie Spirituelle.</p>
-                        
-                        <div id="admin-spirituelle-carousel-list" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <p style="font-size: 0.95rem; color: #64748b; margin-bottom: 1rem;">Gérez ici les images du
+                            carrousel de droite de la page Vie Spirituelle.</p>
+
+                        <div id="admin-spirituelle-carousel-list"
+                            style="display: flex; flex-direction: column; gap: 1rem;">
                             <!-- Les images existantes apparaîtront ici -->
                         </div>
 
@@ -215,12 +217,18 @@
                             </div>
                             <div class="form-group" style="margin-top: 1rem;">
                                 <label>Uploader la photo</label>
-                                <div class="file-drop-area" id="dropAreaSpi" onclick="document.getElementById('uploadNewSpiImg').click()" style="padding: 1rem; min-height: 80px;">
-                                    <p style="font-size: 0.9rem; margin:0;" id="newSpiImgLabel">Cliquez pour choisir un ou plusieurs fichiers</p>
-                                    <input type="file" id="uploadNewSpiImg" accept="image/*" style="display: none;" multiple>
+                                <div class="file-drop-area" id="dropAreaSpi"
+                                    onclick="document.getElementById('uploadNewSpiImg').click()"
+                                    style="padding: 1rem; min-height: 80px;">
+                                    <p style="font-size: 0.9rem; margin:0;" id="newSpiImgLabel">Cliquez pour choisir un
+                                        ou plusieurs fichiers</p>
+                                    <input type="file" id="uploadNewSpiImg" accept="image/*" style="display: none;"
+                                        multiple>
                                 </div>
-                                <button type="button" id="btnAddSpiImage" class="btn btn-primary" style="margin-top: 1rem;" disabled>Ajouter au carrousel</button>
-                                <small id="spiUploadStatus" style="color: green; font-weight: bold; display: none; margin-top: 0.5rem;"></small>
+                                <button type="button" id="btnAddSpiImage" class="btn btn-primary"
+                                    style="margin-top: 1rem;" disabled>Ajouter au carrousel</button>
+                                <small id="spiUploadStatus"
+                                    style="color: green; font-weight: bold; display: none; margin-top: 0.5rem;"></small>
                             </div>
                         </div>
                     </div>
@@ -285,6 +293,9 @@
                         <label for="dynamic-cantine-content">Cantine</label>
                         <textarea id="dynamic-cantine-content" rows="8"></textarea>
                     </div>
+                    <div id="admin-restoration-table" class="pricing-admin-table">
+                        <!-- Tableau généré en JS -->
+                    </div>
                 </section>
 
                 <section id="galerie" class="content-section card">
@@ -309,8 +320,10 @@
                             <div class="file-drop-area" id="dropAreaGallery"
                                 onclick="document.getElementById('uploadNewGalleryImg').click()"
                                 style="padding: 1rem; min-height: 80px;">
-                                <p style="font-size: 0.9rem; margin:0;" id="newGalleryImgLabel">Cliquez pour choisir un ou plusieurs fichiers</p>
-                                <input type="file" id="uploadNewGalleryImg" accept="image/*" style="display: none;" multiple>
+                                <p style="font-size: 0.9rem; margin:0;" id="newGalleryImgLabel">Cliquez pour choisir un
+                                    ou plusieurs fichiers</p>
+                                <input type="file" id="uploadNewGalleryImg" accept="image/*" style="display: none;"
+                                    multiple>
                             </div>
                             <button type="button" id="btnAddGalleryImage" class="btn btn-primary"
                                 style="margin-top: 1rem;" disabled>Ajouter cette image</button>
@@ -332,6 +345,9 @@
                     <div class="form-group">
                         <label for="dynamic-reinscription-content">Texte des modalités de réinscription</label>
                         <textarea id="dynamic-reinscription-content" rows="6"></textarea>
+                    </div>
+                    <div id="admin-scolarite-table" class="pricing-admin-table">
+                        <!-- Tableau généré en JS -->
                     </div>
                 </section>
 

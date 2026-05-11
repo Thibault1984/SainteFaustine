@@ -59,6 +59,39 @@
             background: #1a4f66;
             transform: translateY(-2px);
         }
+
+        /* Styles pour les tableaux de prix */
+        .pricing-table-container {
+            margin-top: 2rem;
+            overflow-x: auto;
+        }
+
+        .pricing-table-container table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .pricing-table-container th, 
+        .pricing-table-container td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .pricing-table-container th {
+            background-color: #f8fafc;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .pricing-table-container em {
+            color: #64748b;
+            font-style: italic;
+        }
     </style>
 </head>
 
@@ -147,6 +180,10 @@
                 <a id="dynamic-inscription-pdf" href="#" class="download-action">
                     <i class="ph ph-file-pdf"></i> Télécharger le dossier d'inscription
                 </a>
+
+                <!-- Tableaux de prix dynamiques -->
+                <div id="dynamic-pricing-restoration-content" class="pricing-table-container"></div>
+                <div id="dynamic-pricing-tuition-content" class="pricing-table-container"></div>
             </div>
 
             <!-- Modalités de réinscription -->

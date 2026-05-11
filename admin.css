@@ -275,3 +275,45 @@ code {
 .toast i {
     font-size: 1.5rem;
 }
+
+/* Pricing Admin Tables */
+.pricing-admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.pricing-admin-table th, .pricing-admin-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.pricing-admin-table th {
+    background: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.pricing-admin-table tr:last-child td {
+    border-bottom: none;
+}
+
+.pricing-admin-table input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.pricing-admin-table input:focus {
+    border-color: var(--primary);
+    outline: none;
+    background: white;
+}
